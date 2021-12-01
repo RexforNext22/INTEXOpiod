@@ -43,3 +43,12 @@ def drugDetailsPageView(request, drug_id):
     }
     return render(request, 'homepages/drugDetails.html', context)
 
+def viewPrescriberPageView(request, prescriber_id) :
+    data = Prescriber.objects.get(npi = prescriber_id)
+    Query1 = 'SELECT drugname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id'
+    # listdrugs = Prescriber.npi.drugname.all()
+    context = {
+        "prescriber" : data,
+        # "listdrugs" : listdrugs
+    }
+    return render(request, 'homepages/prescriberDetails.html', context)
