@@ -28,3 +28,10 @@ def prescribersPageView(request) :
         "prescriber" : data,
     }
     return render(request, 'homepages/showPrescribers.html', context)
+
+def viewPrescriberPageView(request) :
+    data = Prescriber.objects.all()
+    context = {
+        "prescriber" : data,
+    }
+    return render(request, 'homepages/showPrescribers.html', context)
