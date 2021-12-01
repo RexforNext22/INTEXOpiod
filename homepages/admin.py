@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import StateData, Prescriber, Drug
+
+admin.site.register(StateData)
+admin.site.register(Prescriber)
+admin.site.register(Drug)
