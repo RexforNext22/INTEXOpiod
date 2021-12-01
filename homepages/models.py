@@ -33,3 +33,26 @@ class Prescriber(models.Model):
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name # the discription will be seen on the admin page
+#Model for pd-drugs
+class Drugs(models.Model):
+    drugname = models.CharField(max_length=30)
+    is_opioid = models.BooleanField()
+
+    class Meta:
+        db_table = "pd_drugs"
+
+    def __str__(self):
+        return self.drugname # the discription will be seen on the admin page
+        
+#Model for pd_triple
+class Triple(models.Model):
+    prescriber_id = models.ForeignKey(Prescriber, on_delete=models.DO_NOTHING, default='', verbose_name="Prescriber")
+    drugname = models.ForeignKey(Drugs, on_delete=models.DO_NOTHING, default='', verbose_name="Drugs")
+    quantity = models.IntegerField(default=0, blank=True)
+
+    class Meta:
+        db_table = "pd_triple"
+
+    def __str__(self):
+        return self.drugname # the discription will be seen on the admin page
+
