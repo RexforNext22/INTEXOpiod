@@ -9,6 +9,16 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+#*******************************
+# Ryan Pinkney, Tanner Davis, Kevin Guiterrez, Jacob Poor
+# Section 1
+#*******************************
+# Login for /admin
+# Username: ryanpinkney
+# Password: admin
+#*******************************
+# ------------------------------------------------------------------------------------------------------------------------------------------------
 
 from pathlib import Path
 import os
