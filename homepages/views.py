@@ -11,3 +11,7 @@ def indexPageView(request) :
 
 def drugLibraryPageView(request) :
     return render(request, 'homepages/showDrugs.html')
+
+
+def prescribersPageView(request) :
+    return render(request, 'homepages/showPrescribers.html')
