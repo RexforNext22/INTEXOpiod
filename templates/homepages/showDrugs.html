@@ -3,7 +3,7 @@
 {% block content %}
 <br><br><br>
 <div class="container" style="align:center;">
-<h1>Drug:</h1><br><br>
+<h1>Drug</h1><br><br>
 
 {% for drug in drugs %}
     <p style="  margin: auto;
@@ -12,7 +12,7 @@
     padding: 10px;">
         
         {{ drug.drugname }}<!--The names of the column names have to match perfectly-->
-
+        <a class="btn btn-primary" href="{% url 'viewSingle' team_id=player.team_level %}">View</a>
     </p>
 {% endfor %}
 </div>
