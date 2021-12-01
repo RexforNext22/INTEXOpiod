@@ -29,9 +29,9 @@ def prescribersPageView(request) :
     }
     return render(request, 'homepages/showPrescribers.html', context)
 
-def viewPrescriberPageView(request) :
+def viewPrescriberPageView(request, presriber_id) :
     data = Prescriber.objects.all()
     context = {
         "prescriber" : data,
     }
-    return render(request, 'homepages/showPrescribers.html', context)
+    return render(request, 'homepages/prescriberDetails.html', context)
