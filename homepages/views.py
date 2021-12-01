@@ -7,3 +7,7 @@ from django.template import RequestContext
 # Index page function/views
 def indexPageView(request) :
     return render(request, 'homepages/index.html')
+
+
+def drugLibraryPageView(request) :
+    return render(request, 'homepages/showDrugs.html')
