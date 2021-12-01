@@ -3,6 +3,17 @@
 {% block content %}
 <br><br><br>
 <div class="container">
-<h1>This is show prescriber</h1>
+<h1>U.S. Prescribers</h1>
+
+{% for prescriber in prescriber %}
+    <p style="  margin: auto;
+    width: 50%;
+    border: 2px solid CornflowerBlue;
+    padding: 10px;">
+        
+        {{ prescriber.fname }} {{ prescriber.lname }}<!--The names of the column names have to match perfectly-->
+
+    </p>
+{% endfor %}
 </div>
 {% endblock %}

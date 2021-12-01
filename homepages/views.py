@@ -10,19 +10,21 @@ from .models import Prescriber
 
 # Index page function/views
 def indexPageView(request) :
-    # data = Drug.objects.all()
-    # context = {
-    #     "drugs" : data,
-    # }
     return render(request, 'homepages/index.html')
 
 
 
 def drugLibraryPageView(request) :
-
-
-    return render(request, 'homepages/showDrugs.html')
+    data = Drug.objects.all()
+    context = {
+        "drugs" : data,
+    }
+    return render(request, 'homepages/showDrugs.html', context)
 
 
 def prescribersPageView(request) :
-    return render(request, 'homepages/showPrescribers.html')
+    data = Prescriber.objects.all()
+    context = {
+        "prescriber" : data,
+    }
+    return render(request, 'homepages/showPrescribers.html', context)

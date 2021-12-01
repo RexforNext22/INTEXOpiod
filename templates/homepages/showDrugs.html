@@ -2,12 +2,16 @@
 {% load static %}
 {% block content %}
 <br><br><br>
-<div class="container">
-<h1>This is show drugs</h1>
-{% for drugs in drugs %}
-    <p>
+<div class="container" style="align:center;">
+<h1>Drug:</h1><br><br>
+
+{% for drug in drugs %}
+    <p style="  margin: auto;
+    width: 50%;
+    border: 2px solid CornflowerBlue;
+    padding: 10px;">
         
-        {{ drugs.drugname }}  {{ drugs.isopioid }}  <!--The names of the column names have to match perfectly-->
+        {{ drug.drugname }}<!--The names of the column names have to match perfectly-->
 
     </p>
 {% endfor %}
