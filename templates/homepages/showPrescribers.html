@@ -12,7 +12,7 @@
     padding: 10px;">
         
         {{ prescriber.fname }} {{ prescriber.lname }}<!--The names of the column names have to match perfectly-->
-
+        <a class="btn btn-primary" href="{% url 'viewPrescriber' presriber_id=prescriber.npi %}">View</a>
     </p>
 {% endfor %}
 </div>
