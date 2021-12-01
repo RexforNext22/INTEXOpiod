@@ -9,5 +9,5 @@ urlpatterns = [
     path("", indexPageView, name="index"),    
     path("druglibrary/", drugLibraryPageView, name="druglibrary"),
     path("prescribers/", prescribersPageView, name="prescribers"),
-    path("viewprescribers/", viewPrescriberPageView, name="viewPrescriber"),      
+    path("viewprescribers/<int:prescriber_id>", viewPrescriberPageView, name="viewPrescriber"),      
 ]

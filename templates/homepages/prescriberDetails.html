@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br>
+<div class="container" style="align:center;">
+<h1>Prescriber:  {{ prescriber.fname  }} {{ prescriber.lname }}</h1><br><br>
+    <p style="  margin: auto;
+    font-weight: bold;
+    width: 50%;
+    border: 2px solid CornflowerBlue;
+    padding: 10px;">
+        
+        Gender: {{ prescriber.gender }} <br>
+        Credentials: {{ prescriber.credentials }}<br>
+        Specialty: {{ prescriber.specialty }}<br>
+        State: {{ prescriber.state }}<br><br><!--The names of the column names have to match perfectly-->
+        Drugs Presribed:
+        {{ listdrugs }}
+    </p>
+</div>
+{% endblock %}
