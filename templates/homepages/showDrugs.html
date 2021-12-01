@@ -4,5 +4,12 @@
 <br><br><br>
 <div class="container">
 <h1>This is show drugs</h1>
+{% for drugs in drugs %}
+    <p>
+        
+        {{ drugs.drugname }}  {{ drugs.isopioid }}  <!--The names of the column names have to match perfectly-->
+
+    </p>
+{% endfor %}
 </div>
 {% endblock %}
