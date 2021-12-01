@@ -30,7 +30,7 @@ def prescribersPageView(request) :
     return render(request, 'homepages/showPrescribers.html', context)
 
 def drugDetailsPageView(request, drug_id):
-    data = Drug.objects.get(id = drug_id)
+    data = Drug.objects.get(drugid = drug_id)
     opioid = ""
     if data.isopioid == True :
         opioid = "Opioid"
