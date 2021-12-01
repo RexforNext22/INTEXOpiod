@@ -28,3 +28,18 @@ def prescribersPageView(request) :
         "prescriber" : data,
     }
     return render(request, 'homepages/showPrescribers.html', context)
+
+def drugDetailsPageView(request, drug_id):
+    data = Drug.objects.get(id = drug_id)
+    opioid = ""
+    if data.isopioid == True :
+        opioid = "Opioid"
+    else:
+        opioid = "Not Opioid"
+
+    context = {
+        "drug" : data,
+        "opioid" : opioid
+    }
+    return render(request, 'homepages/drugDetails.html', context)
+

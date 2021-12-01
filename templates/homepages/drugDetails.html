@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<br /><br /><br />
+<div class="container">
+  <h1>{{drug.drugname}}</h1>
+
+  <p
+    style="
+      margin: auto;
+      width: 50%;
+      border: 2px solid CornflowerBlue;
+      padding: 10px;
+    "
+  >
+    {{opioid}}<!--The names of the column names have to match perfectly-->
+  </p>
+</div>
+{% endblock %}

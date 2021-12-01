@@ -1,19 +1,24 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-<br><br><br>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<br /><br /><br />
 <div class="container">
-<h1>U.S. Prescribers</h1>
+  <h1>U.S. Prescribers</h1>
 
-{% for prescriber in prescriber %}
-    <p style="  margin: auto;
-    width: 50%;
-    border: 2px solid CornflowerBlue;
-    padding: 10px;">
-        
-        {{ prescriber.fname }} {{ prescriber.lname }}<!--The names of the column names have to match perfectly-->
-        <a class="btn btn-primary" href="{% url 'viewPrescriber' presriber_id=prescriber.npi %}">View</a>
-    </p>
-{% endfor %}
+  {% for prescriber in prescriber %}
+  <p
+    style="
+      margin: auto;
+      width: 50%;
+      border: 2px solid CornflowerBlue;
+      padding: 10px;
+    "
+  >
+    {{ prescriber.fname }} {{ prescriber.lname }}<!--The names of the column names have to match perfectly-->
+    <a
+      class="btn btn-primary"
+      href="{% url 'viewPrescriber' prescriber_id=prescriber.npi %}"
+      >View</a
+    >
+  </p>
+  {% endfor %}
 </div>
 {% endblock %}
