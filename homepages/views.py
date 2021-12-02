@@ -152,16 +152,12 @@ def addPrescriberPageView(request):
 
         if sOpioid != '' :
             if sOpioid == 'yes' :
-                sOpioid = True
+                sOpioid = "True"
             else :
-                sOpioid = False
+                sOpioid = "False"
 
         prescriber.isopioidprescriber = sOpioid
         prescriber.save() 
-
-
-
-
     context = {
 
     }
@@ -178,10 +174,11 @@ def editPrescriberPageView(request, prescriber_id) :
 
     return render(request, 'homepages/editPrescriber.html', context)
 
-def updatePrescriberPageView(request, prescriber_id) :
+def updatePrescriberPageView(request) :
     if request.method == 'POST' :
-        
+        prescriber_id = request.POST['NPI']
         prescriber = Prescriber.objects.get(npi=prescriber_id)
+
         prescriber.npi = request.POST['NPI']
         prescriber.fname = request.POST['first_name']
         prescriber.lname = request.POST['last_name']
@@ -189,15 +186,35 @@ def updatePrescriberPageView(request, prescriber_id) :
         prescriber.state_id = request.POST['state']
         prescriber.credentials = request.POST['credentials']
         prescriber.specialty = request.POST['specialty']
+        prescriber.totalprescriptions = request.POST['totalprescriptions']
         sOpioid = request.GET.get("opioid")
 
         if sOpioid != '' :
             if sOpioid == 'yes' :
-                sOpioid = True
+                sOpioid = "True"
             else :
-                sOpioid = False
+                sOpioid = "False"
 
         prescriber.isopioidprescriber = sOpioid
-        prescriber.save()    
+        
+        prescriber.save()
+     
 
-    return render(request, 'homepages/showPrescribers.html')
+    return savePageView(request)
+
+
+# View function to display the edit prescriber save html
+def savePageView(request) : 
+    return render(request, 'homepages/save.html')
+
+# View function to delete
+def deletePageView(request, prescriber_id):
+    data = Prescriber.objects.get(npi=prescriber_id)
+
+    data.delete()
+
+    return deletemessagePageView(request)
+
+# View function to display the edit prescriber html
+def deletemessagePageView(request) : 
+    return render(request, 'homepages/delete.html')

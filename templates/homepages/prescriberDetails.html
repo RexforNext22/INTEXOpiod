@@ -5,7 +5,11 @@
   <a
     class="btn btn-primary" style="Float: right"
     href="{% url 'editPrescriber' prescriber_id=prescriber.npi %}"
-    >Update Prescriber</a
+    >Update Prescriber</a>
+    <a
+    class="btn btn-primary" style="Float: right"
+    href="{% url 'delete' prescriber_id=prescriber.npi %}"
+    >Delete Prescriber</a>
   <br /><br />
   <p
     style="

@@ -24,7 +24,7 @@ class Prescriber(models.Model):
     state = models.ForeignKey(State, to_field="stateabbrev", on_delete = models.DO_NOTHING, default='',verbose_name="State")
     credentials = models.CharField(max_length=30)
     specialty = models.CharField(max_length=62)
-    isopioidprescriber = models.BooleanField()
+    isopioidprescriber = models.CharField(max_length=5)
     totalprescriptions = models.IntegerField(default=0, blank=True)
 
 
@@ -38,7 +38,7 @@ class Prescriber(models.Model):
 class Drug(models.Model):
     drugid = models.IntegerField(blank=True, primary_key=True, unique=True) 
     drugname = models.CharField(max_length=30, unique=True)
-    isopioid = models.BooleanField()
+    isopioid = models.CharField(max_length=5)
 
     class Meta:
         db_table = "pd_drugs"
