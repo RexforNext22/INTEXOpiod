@@ -37,15 +37,19 @@ def prescribersPageView(request) :
 # View function to see the individual drug information
 def drugDetailsPageView(request, drug_id):
     data = Drug.objects.get(drugid = drug_id)
-    opioid = ""
     if data.isopioid == True :
         opioid = "Opioid"
     else:
         opioid = "Not Opioid"
 
+    data2 = data.drugname.all()
+    data3 = Triple.objects.get(drugname = data2)
+    data4 = data3.prescriber_id.all()
+    data5 = Prescriber.objects.get(npi = data4)
     context = {
         "drug" : data,
-        "opioid" : opioid
+        "opioid" : opioid,
+        "topprescriber" : data5
     }
     return render(request, 'homepages/drugDetails.html', context)
 
