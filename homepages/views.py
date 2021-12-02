@@ -41,8 +41,8 @@ def drugDetailsPageView(request, drug_id):
         opioid = "Opioid"
     else:
         opioid = "Not Opioid"
-    data2 = Triple.objects.get(drugid=drug_id)
-    query1 = 'SELECT fname, lname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriberid INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_drugs.drugid =' + drug_id + 'ORDER BY pd_triple.qty LIMIT 10'
+  
+    query1 = 'SELECT npi, fname, lname, qty FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_drugs.drugid =' + str(drug_id) + ' ORDER BY pd_triple.qty DESC LIMIT 10'
     data2 = Prescriber.objects.raw(query1)
     context = {
         "drug" : data,

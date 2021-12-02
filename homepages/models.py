@@ -48,8 +48,8 @@ class Drug(models.Model):
 
 #Model for pd_triple
 class Triple(models.Model):
-    prescriber = models.ForeignKey(Prescriber, to_field="npi", on_delete=models.DO_NOTHING, default='', verbose_name="Prescriber")
-    drugname = models.ForeignKey(Drug, to_field="drugname", on_delete=models.DO_NOTHING, default='', verbose_name="Drugs")
+    prescriber_id = models.ForeignKey(Prescriber, to_field="npi", on_delete=models.DO_NOTHING, default='', verbose_name="Prescriber")
+    drugid = models.ForeignKey(Drug, to_field="drugid", on_delete=models.DO_NOTHING, default='', verbose_name="Drugs")
     qty = models.IntegerField(default=0, blank=True)
     
     class Meta:
