@@ -26,7 +26,7 @@ def drugLibraryPageView(request) :
 # View function to see all the prescribers
 def prescribersPageView(request) :
     data = Prescriber.objects.all()
-    sQuery1 = "SELECT DISTINCT specialty FROM (SELECT DISTINCT npi, specialty FROM pd_prescriber) AS InTable"
+    sQuery1 = "SELECT DISTINCT npi, specialty FROM pd_prescriber" # FIX THIS LATER
     specialty = Prescriber.objects.raw(sQuery1)
     context = {
         "prescriber" : data,
@@ -97,3 +97,15 @@ def filterPrescriberPageView(request) :
 
     }
     return render(request, 'homepages/showPrescribers.html', context)
+
+# View function to add a prescriber
+def addPrescriberPageView(request):
+
+
+
+
+
+    context = {
+
+    }
+    return render(request, 'homepages/addPrescriber.html', context)
