@@ -6,16 +6,17 @@
 
     <!--Form to filter drugs-->
         <form method="get" action="{% url 'filterdrug' %}" style="border: 1px solid; width: 50%; margin: auto;">{% csrf_token %}
-            <label for="drug_name">Name</label>
-            <input type="text" name="drug_name" id="drug_name"><br><br>
+            <label for="drug_search">Name</label>
+            <input type="text" name="drug_search" id="drug_search"><br><br>
 
-            {% comment %} <label for="Opioid">Opioid</label><br> {% endcomment %}
-            <input type="radio" id="Opioid" name="Opioid" value="yes">
-            {% comment %} <label for="Opioid">Yes</label><br> {% endcomment %}
-            {% comment %} <input type="radio" id="Opioid" name="Opioid" value="no">
-            <label for="Opioid">No</label><br> {% endcomment %}
+            <label for="Opioid">Opioid</label><br>
+            <input type="radio" id="opioid" name="opioid" value="yes">
+            <label for="opioid">Yes</label><br>
+            <input type="radio" id="Opioid" name="Opioid" value="no">
+            <label for="Opioid">No</label><br>
 
-            <button class="btn btn-primary" type="submit">Search</button><br><br>
+            <button class="btn btn-primary" type="submit">Search</button>
+            <button class="btn btn-primary" type="submit">Show All</button><br><br>
         </form><br><br>
 
   {% for drug in drugs %}

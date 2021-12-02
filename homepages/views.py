@@ -100,16 +100,20 @@ def filterPrescriberPageView(request) :
     if sSpeciality != '' :
         sQuery += " AND specialty LIKE " + "'%" + sSpeciality + "%'"
     data = Prescriber.objects.raw(sQuery)
+    sQuery1 = "SELECT DISTINCT npi, specialty FROM pd_prescriber" # FIX THIS LATER
+    specialty = Prescriber.objects.raw(sQuery1)
     context = {
         "prescriber" : data,
+        "specialty" : specialty,
 
     }
     return render(request, 'homepages/showPrescribers.html', context)
 
 # View function to filter the drugs
 def filterDrugPageView(request) :
-    sName = request.GET["drug_name"]
-    bOpioid = request.GET["Opioid"]
+    sName = request.GET.get("drug_search")
+    sName = sName.upper()
+    bOpioid = request.GET.get("opioid")
    
     sQuery = "SELECT * FROM pd_drugs WHERE pd_drugs.drugid = pd_drugs.drugid"
     if sName != '' :

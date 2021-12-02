@@ -29,10 +29,10 @@ The page inherits form the base.html
 
     <label for="specialty">Specialty</label>
     <select name="specialty" id="specialty">
-
-      {% for specialty in specialty %}
-      <option value="{{ specialty.specialty }}">{{ specialty.specialty }}</option>
-      {% endfor %}
+        <option value="">None</option>
+        {% for specialty in specialty %}
+         <option value="{{ specialty.specialty }}">{{ specialty.specialty }}</option>
+        {% endfor %}
 
     </select><br><br>
 
@@ -41,9 +41,8 @@ The page inherits form the base.html
     href="{% url 'addPrescriber' %}"
     >Add Prescriber</a
   >
-    
-
-    <button class="btn btn-primary" type="submit">Search</button><br><br>
+    <button class="btn btn-primary" type="submit">Search</button> <!--Button to submit the search criteria-->
+    <button class="btn btn-primary" type="submit">Show All</button> <!--Button to redisplay all the records-->
 </form><br><br>
 
     <!--Display all the prescriber information through Django-->
