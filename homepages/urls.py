@@ -2,14 +2,16 @@
 from django.urls import path
 from .views import indexPageView
 from .views import drugLibraryPageView, prescribersPageView, drugDetailsPageView
-from .views import viewPrescriberPageView
+from .views import viewPrescriberPageView, filterPrescriberPageView
 
 
 # Create the different path for index and about 
 urlpatterns = [
     path("", indexPageView, name="index"),    
-    path("druglibrary/", drugLibraryPageView, name="druglibrary"),
-    path("prescribers/", prescribersPageView, name="prescribers"),
-    path("showdrugs/<int:drug_id>", drugDetailsPageView, name='showDrugs'),  
-    path("viewprescribers/<int:prescriber_id>", viewPrescriberPageView, name="viewPrescriber"),      
+    path("druglibrary/", drugLibraryPageView, name="druglibrary"), # route for the drug library
+    path("prescribers/", prescribersPageView, name="prescribers"), # route for the prescriber library
+    path("showdrugs/<int:drug_id>", drugDetailsPageView, name='showDrugs'), # route for the drug details
+    path("viewprescribers/<int:prescriber_id>", viewPrescriberPageView, name="viewPrescriber"), # route to view the prescriber details
+    path("filterprescriber/", filterPrescriberPageView, name="filterprescriber"), # route for the filter prescriber details      
 ]
+

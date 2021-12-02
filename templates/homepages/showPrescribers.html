@@ -1,18 +1,58 @@
+<!--This page displays all the prescribers
+The page inherits form the base.html
+-->
 {% extends 'base.html' %} {% load static %} {% block content %}
-<br /><br /><br />
+<br /><br /><br /> 
+
+<!--DIV CONTAINER-->
 <div class="container">
+
+    <!--The Title -->
   <h1>U.S. Prescribers</h1>
 
+  <!--Form to filter information-->
+<form method="get" action="{% url 'filterprescriber' %}" style="border: 1px solid; width: 50%; margin: auto;">{% csrf_token %}
+    <label for="first_name">First Name</label>
+    <input type="text" name="first_name" id="first_name"><br><br>
+
+    <label for="last_name">Last Name</label>
+    <input type="text" name="last_name" id="last_name"><br><br>
+
+    <label for="gender">Gender</label>
+    <input type="text" name="gender" id="gender"><br><br>
+
+    <label for="credentials">Credentials</label>
+    <input type="text" name="credentials" id="credentials"><br><br>
+
+    <label for="location">Location (State Abbreviation)</label>
+    <input type="text" name="location" id="location"><br><br>
+
+    <label for="specialty">Specialty</label>
+    <select name="specialty" id="specialty">
+
+      {% for specialty in specialty %}
+      <option value="{{ specialty.specialty }}">{{ specialty.specialty }}</option>
+      {% endfor %}
+
+    </select><br><br>
+    
+
+    <button class="btn btn-primary" type="submit">Search</button><br><br>
+</form><br><br>
+
+    <!--Display all the prescriber information through Django-->
   {% for prescriber in prescriber %}
   <p
     style="
-      margin: auto;
-      width: 50%;
+      margin: fixed;
+      width: 100%;
       border: 2px solid CornflowerBlue;
       padding: 10px;
     "
   >
-    {{ prescriber.fname }} {{ prescriber.lname }}<!--The names of the column names have to match perfectly-->
+    {{ prescriber.fname }} {{ prescriber.lname }} <!--The names of the column names have to match perfectly-->
+
+    <!--The button to view the individual prescribers-->
     <a
       class="btn btn-primary"
       href="{% url 'viewPrescriber' prescriber_id=prescriber.npi %}"
