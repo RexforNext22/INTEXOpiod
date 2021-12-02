@@ -54,11 +54,12 @@ def drugDetailsPageView(request, drug_id):
 # View function to view the individual prescribers
 def viewPrescriberPageView(request, prescriber_id) :
     data = Prescriber.objects.get(npi = prescriber_id)
-    Query1 = 'SELECT drugname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id'
-    # listdrugs = Prescriber.npi.drugname.all()
+    Query1 = 'SELECT npi, drugname FROM pd_prescriber  INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = 1992883235' 
+    data2 = Prescriber.objects.raw(Query1)
     context = {
         "prescriber" : data,
-        # "listdrugs" : listdrugs
+        "drugsprescribed" : data2
+        
     }
     return render(request, 'homepages/prescriberDetails.html', context)
 
