@@ -12,6 +12,19 @@
     "
   >
     {{opioid}}<!--The names of the column names have to match perfectly-->
+
+    {% for dat in topprescriber %}
+  <p
+    style="
+      margin: auto;
+      width: 50%;
+      border: 2px solid CornflowerBlue;
+      padding: 10px;
+    "
+  >
+    {{ dat.fname }}, {{dat.lname}}<!--The names of the column names have to match perfectly-->
+  </p>
+  {% endfor %}
   </p>
 </div>
 {% endblock %}
