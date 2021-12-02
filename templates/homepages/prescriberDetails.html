@@ -1,7 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <br /><br /><br />
 <div class="container" style="align: center">
-  <h1>Prescriber: {{ prescriber.fname }} {{ prescriber.lname }}</h1>
+  <h1>Prescriber: {{ prescriber.fname }} {{ prescriber.lname }}</h1>     <!--The button to view the individual prescribers-->
+  <a
+    class="btn btn-primary" style="Float: right"
+    href="{% url 'editPrescriber' prescriber_id=prescriber.npi %}"
+    >Update Prescriber</a
   <br /><br />
   <p
     style="

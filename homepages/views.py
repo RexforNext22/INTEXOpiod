@@ -59,15 +59,15 @@ def viewPrescriberPageView(request, prescriber_id) :
     data = Prescriber.objects.get(npi = prescriber_id)
 
     # Pull the prescribers for this drug
-    Query1 = 'SELECT npi, drugname, drugid FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = ' + str(prescriber_id)
+    Query1 = 'SELECT npi, drugname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = ' + str(prescriber_id)
     data2 = Prescriber.objects.raw(Query1)
 
-    Query2 = 'SELECT drugid, round(AVG(qty),0) AS DrugAverage FROM pd_triple WHERE drugid =' + data2.drugid + 'GROUP BY drugid'
-    data3 = Triple.objects.raw(Query2)
+    # Query2 = 'SELECT drugid, round(AVG(qty),0) AS DrugAverage FROM pd_triple WHERE drugid = 2 GROUP BY drugid'
+    # data3 = Triple.objects.raw(Query2)
     context = {
         "prescriber" : data,
         "drugsprescribed" : data2,
-        "average" : data3
+        # "average" : data3
         
     }
     return render(request, 'homepages/prescriberDetails.html', context)
@@ -138,7 +138,26 @@ def filterDrugPageView(request) :
 
 # View function to add a prescriber
 def addPrescriberPageView(request):
+    if request.method == 'POST' :
+        prescriber = Prescriber()
+        prescriber.npi = request.POST['NPI']
+        prescriber.fname = request.POST['first_name']
+        prescriber.lname = request.POST['last_name']
+        prescriber.gender = request.POST['gender']
+        prescriber.state_id = request.POST['state']
+        prescriber.credentials = request.POST['credentials']
+        prescriber.specialty = request.POST['specialty']
 
+        sOpioid = request.GET.get("opioid")
+
+        if sOpioid != '' :
+            if sOpioid == 'yes' :
+                sOpioid = True
+            else :
+                sOpioid = False
+
+        prescriber.isopioidprescriber = sOpioid
+        prescriber.save() 
 
 
 
@@ -147,3 +166,30 @@ def addPrescriberPageView(request):
 
     }
     return render(request, 'homepages/addPrescriber.html', context)
+
+
+# View function to display the edit prescriber html
+def editPrescriberPageView(request, prescriber_id) : 
+    data = Prescriber.objects.get(npi = prescriber_id)
+    context = {
+        "prescriber" : data,
+    }
+
+    return render(request, 'homepages/editPrescriber.html', context)
+
+# def updatePrescriberPageView(request) :
+#     if request.method == 'POST' :
+#         cust_id = request.POST['cust_id']
+
+#         customer = Customer.objects.get(id=cust_id)
+
+#         customer.first_name = request.POST['first_name']
+#         customer.last_name = request.POST['last_name']
+#         customer.username = request.POST['username']
+#         customer.password = request.POST['password']
+#         customer.email = request.POST['email']
+#         customer.phone = request.POST['phone']
+
+#         customer.save()    
+
+#     return render(request, 'homepages/showPrescribers.html')

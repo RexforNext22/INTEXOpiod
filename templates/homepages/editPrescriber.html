@@ -2,35 +2,35 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <br /><br /><br /><br><br>
 <div class="container" style="margin: auto; align: center" ><br><br>
-    <h4>Add Prescriber</h4>
-    <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'addPrescriber' %}">{% csrf_token %}
+    <h4>Update Prescriber</h4>
+    <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'updatePrescriber' %}">{% csrf_token %}
 
         <label for="NPI">NPI:</label>
         <input type="text" id="NPI" name="NPI" autofocus>
         <br><br>
     
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" >
+        <input type="text" id="first_name" name="first_name" value={{ prescriber.fname }}>
         <br><br>
     
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name">
+        <input type="text" id="last_name" name="last_name" value={{ prescriber.lname }}>
         <br><br>
     
         <label for="gender">Gender</label>
-        <input type="text" id="gender" name="gender">
+        <input type="text" id="gender" name="gender" value={{ prescriber.gender }}>
         <br><br>
     
         <label for="state">State:</label>
-        <input type="text" id="state" name="state">
+        <input type="text" id="state" name="state" value={{ prescriber.state_id }}>
         <br><br>
     
         <label for="credentials">Credentials:</label>
-        <input type="text" id="credentials" name="credentials">
+        <input type="text" id="credentials" name="credentials" value={{ prescriber.credentials }}>
         <br><br>
     
         <label for="specialty">Specialty:</label>
-        <input type="text" id="specialty" name="specialty">
+        <input type="text" id="specialty" name="specialty" value={{ prescriber.specialty }}>
         <br><br>
 
         <label for="Opioid">Opioid Prescriber</label><br>
