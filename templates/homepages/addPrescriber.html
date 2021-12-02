@@ -2,7 +2,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <br /><br /><br /><br><br>
 <div class="container" style="margin: auto; align: center" ><br><br>
-
+    <h4>Add Prescriber</h4>
     <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'addPrescriber' %}">{% csrf_token %}
 
         <input type="hidden" id="cust_id" name="cust_id" >
