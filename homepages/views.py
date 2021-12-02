@@ -180,10 +180,9 @@ def editPrescriberPageView(request, prescriber_id) :
 
 def updatePrescriberPageView(request, prescriber_id) :
     if request.method == 'POST' :
-        prescriber_id = request.POST['prescriber_id']
-
+        
         prescriber = Prescriber.objects.get(id=prescriber_id)
-
+        prescriber.npi = request.POST['NPI']
         prescriber.fname = request.POST['first_name']
         prescriber.lname = request.POST['last_name']
         prescriber.gender = request.POST['gender']
