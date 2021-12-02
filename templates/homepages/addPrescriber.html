@@ -1,0 +1,38 @@
+<!--This is the html form to add a prescriber to the database-->
+{% extends 'base.html' %} {% load static %} {% block content %}
+<br /><br /><br /><br><br>
+<div class="container" style="margin: auto; align: center" ><br><br>
+
+    <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'addPrescriber' %}">{% csrf_token %}
+
+        <input type="hidden" id="cust_id" name="cust_id" >
+    
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" autofocus>
+        <br><br>
+    
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name">
+        <br><br>
+    
+        <label for="username">User Name:</label>
+        <input type="text" id="username" name="username">
+        <br><br>
+    
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password">
+        <br><br>
+    
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+        <br><br>
+    
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone">
+        <br><br>
+    
+        <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+
+</div>
+{% endblock %}
