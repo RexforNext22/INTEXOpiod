@@ -23,6 +23,7 @@ def drugLibraryPageView(request) :
     }
     return render(request, 'homepages/showDrugs.html', context)
 
+
 # View function to see all the prescribers
 def prescribersPageView(request) :
     data = Prescriber.objects.all()
@@ -33,6 +34,7 @@ def prescribersPageView(request) :
         "specialty" : specialty,
     }
     return render(request, 'homepages/showPrescribers.html', context)
+
 
 # View function to see the individual drug information
 def drugDetailsPageView(request, drug_id):
@@ -51,14 +53,21 @@ def drugDetailsPageView(request, drug_id):
     }
     return render(request, 'homepages/drugDetails.html', context)
 
+
 # View function to view the individual prescribers
 def viewPrescriberPageView(request, prescriber_id) :
     data = Prescriber.objects.get(npi = prescriber_id)
-    Query1 = 'SELECT npi, drugname FROM pd_prescriber  INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = 1992883235' 
+
+    # Pull the prescribers for this drug
+    Query1 = 'SELECT npi, drugname, drugid FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = ' + str(prescriber_id)
     data2 = Prescriber.objects.raw(Query1)
+
+    Query2 = 'SELECT drugid, round(AVG(qty),0) AS DrugAverage FROM pd_triple WHERE drugid =' + data2.drugid + 'GROUP BY drugid'
+    data3 = Triple.objects.raw(Query2)
     context = {
         "prescriber" : data,
-        "drugsprescribed" : data2
+        "drugsprescribed" : data2,
+        "average" : data3
         
     }
     return render(request, 'homepages/prescriberDetails.html', context)
@@ -96,6 +105,32 @@ def filterPrescriberPageView(request) :
 
     }
     return render(request, 'homepages/showPrescribers.html', context)
+
+# View function to filter the drugs
+def filterDrugPageView(request) :
+    sName = request.GET["drug_name"]
+    bOpioid = request.GET["Opioid"]
+   
+    sQuery = "SELECT * FROM pd_drugs WHERE pd_drugs.drugid = pd_drugs.drugid"
+    if sName != '' :
+        sQuery += " AND drugname = " + "'" + sName + "'"
+
+    if bOpioid != '' :
+        if bOpioid == 'yes' :
+            bOpioid = 'True'
+        else :
+            bOpioid = 'False'
+        
+        sQuery += " AND isopioid = " + "'" + bOpioid + "'"
+ 
+    data = Drug.objects.raw(sQuery)
+    context = {
+        "drugs" : data,
+
+    }
+    return render(request, 'homepages/showDrugs.html', context)
+
+
 
 # View function to add a prescriber
 def addPrescriberPageView(request):

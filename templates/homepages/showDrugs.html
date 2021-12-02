@@ -4,6 +4,20 @@
   <h1>Drug</h1>
   <br /><br />
 
+    <!--Form to filter drugs-->
+        <form method="get" action="{% url 'filterdrug' %}" style="border: 1px solid; width: 50%; margin: auto;">{% csrf_token %}
+            <label for="drug_name">Name</label>
+            <input type="text" name="drug_name" id="drug_name"><br><br>
+
+            {% comment %} <label for="Opioid">Opioid</label><br> {% endcomment %}
+            <input type="radio" id="Opioid" name="Opioid" value="yes">
+            {% comment %} <label for="Opioid">Yes</label><br> {% endcomment %}
+            {% comment %} <input type="radio" id="Opioid" name="Opioid" value="no">
+            <label for="Opioid">No</label><br> {% endcomment %}
+
+            <button class="btn btn-primary" type="submit">Search</button><br><br>
+        </form><br><br>
+
   {% for drug in drugs %}
   <p
     style="

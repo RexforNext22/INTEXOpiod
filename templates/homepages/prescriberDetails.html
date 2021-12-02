@@ -17,20 +17,15 @@
     Specialty: {{ prescriber.specialty }}<br />
     State: {{ prescriber.state }}<br />
     Total Prescriptions: {{ prescriber.totalprescriptions }}<br /><br /><!--The names of the column names have to match perfectly-->
-    Drugs Prescribed: {{ listdrugs }}
-  </p>
+    Drugs Prescribed: {{ listdrugs }}<br>
+ 
+  {% for drugsprescribed in drugsprescribed %}
 
-  {% for dat in topprescriber %}
-  <p
-    style="
-      margin: auto;
-      width: 50%;
-      border: 2px solid CornflowerBlue;
-      padding: 10px;
-    "
-  >
-    {{ dat.fname }}, {{dat.lname}}<!--The names of the column names have to match perfectly-->
-  </p>
+    {{ drugsprescribed.drugname }} {{ average.drugaverage }}<br><!--The names of the column names have to match perfectly-->
+
+
   {% endfor %}
+  {{ average.drugaverage }}
+</p>
 </div>
 {% endblock %}
