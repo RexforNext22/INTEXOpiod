@@ -28,10 +28,27 @@ def drugLibraryPageView(request) :
 def prescribersPageView(request) :
     data = Prescriber.objects.all()
     sQuery1 = "SELECT DISTINCT npi, specialty FROM pd_prescriber" # FIX THIS LATER
-    specialty = Prescriber.objects.raw(sQuery1)
+
+    lsSpecialty = ["Geriatric Psychiatry", "Hematology", "Podiatry", "Psychiatry & Neurology",
+                    "Cardiology", "General Acute Care Hospital", "Pediatric Medicine", "Colorectal Surgery (formerly proctology)", "General Practice",
+                    "Gastroenterology", "Multispecialty Clinic/Group Practice", "Interventional Pain Management", "CRNA", "Hospitalist",
+                    "Plastic and Reconstructive Surgery", "Student in an Organized Health Care Education/Training Program", "Neurosurgery",
+                    "Osteopathic Manipulative Medicine", "Physical Medicine and Rehabilitation", "Urology", "Pulmonary Disease",
+                    "Pain Management", "Medical Oncology", "Unknown Physician Specialty Code", "Cardiac Electrophysiology",
+                    "Geriatric Medicine", "Maxillofacial Surgery", "Allergy/Immunology", "Anesthesiology", "Hematology/Oncology",
+                    "Otolaryngology", "Vascular Surgery", "Psychiatry", "Dermatology", "Community Health Worker",
+                    "Gynecological/Oncology", "Rheumatology", "Nuclear Medicine", "Dentist", "Physician Assistant", "Sports Medicine", 
+                    "Health Maintenance Organization", "Pharmacist", "Endocrinology", "Hospice and Palliative Care",
+                    "Radiation Oncology", "Internal Medicine", "Infectious Disease", "Ophthalmology", "Legal Medicine", "Certified Nurse Midwife",
+                    "Preventive Medicine", "Registered Nurse", "Orthopedic Surgery", "Surgical Oncology", "General Surgery", "Nurse", "Obstetrics/Gynecology", "Oral Surgery (dentists only)",
+                    "Psychologist (billing independently)", "Optometry", "Critical Care (Intensivists)", "Neurology", "Specialist",
+                    "Clinic/Center", "Thoracic Surgery", "Neuropsychiatry", "Nurse Practitioner", "Interventional Radiology", "Emergency Medicine", "Family Practice",
+                    "Nephrology", "Diagnostic Radiology", "Cardiac Surgery", "Certified Clinical Nurse Specialist", "Family Medicine" ]
+
+
     context = {
         "prescriber" : data,
-        "specialty" : specialty,
+        "specialty" : lsSpecialty,
     }
     return render(request, 'homepages/showPrescribers.html', context)
 
@@ -76,12 +93,16 @@ def viewPrescriberPageView(request, prescriber_id) :
 
 # View function to filter the prescriber
 def filterPrescriberPageView(request) :
+
+    # Collect the values from the filter form
     sFirst_Name = request.GET["first_name"]
     sLast_Name = request.GET["last_name"]
     sGender = request.GET["gender"]
     sCredentials = request.GET['credentials']
     sLocation = request.GET['location']
     sSpeciality = request.GET['specialty']
+
+    # Build the raw query
     sQuery = "SELECT * FROM pd_prescriber WHERE pd_prescriber.npi = pd_prescriber.npi"
     if sFirst_Name != '' :
         sQuery += " AND fname = " + "'" + sFirst_Name + "'"
@@ -99,13 +120,32 @@ def filterPrescriberPageView(request) :
         sQuery += " AND credentials = " + "'" + sCredentials + "'"
 
     if sSpeciality != '' :
-        sQuery += " AND specialty LIKE " + "'%" + sSpeciality + "%'"
+        sQuery += " AND specialty =" + "'" + sSpeciality + "'"
+
+    # Run the raw query
     data = Prescriber.objects.raw(sQuery)
-    sQuery1 = "SELECT DISTINCT npi, specialty FROM pd_prescriber" # FIX THIS LATER
-    specialty = Prescriber.objects.raw(sQuery1)
+
+    # List with all the different specialty titles
+    lsSpecialty = ["Geriatric Psychiatry", "Hematology", "Podiatry", "Psychiatry & Neurology",
+                    "Cardiology", "General Acute Care Hospital", "Pediatric Medicine", "Colorectal Surgery (formerly proctology)", "General Practice",
+                    "Gastroenterology", "Multispecialty Clinic/Group Practice", "Interventional Pain Management", "CRNA", "Hospitalist",
+                    "Plastic and Reconstructive Surgery", "Student in an Organized Health Care Education/Training Program", "Neurosurgery",
+                    "Osteopathic Manipulative Medicine", "Physical Medicine and Rehabilitation", "Urology", "Pulmonary Disease",
+                    "Pain Management", "Medical Oncology", "Unknown Physician Specialty Code", "Cardiac Electrophysiology",
+                    "Geriatric Medicine", "Maxillofacial Surgery", "Allergy/Immunology", "Anesthesiology", "Hematology/Oncology",
+                    "Otolaryngology", "Vascular Surgery", "Psychiatry", "Dermatology", "Community Health Worker",
+                    "Gynecological/Oncology", "Rheumatology", "Nuclear Medicine", "Dentist", "Physician Assistant", "Sports Medicine", 
+                    "Health Maintenance Organization", "Pharmacist", "Endocrinology", "Hospice and Palliative Care",
+                    "Radiation Oncology", "Internal Medicine", "Infectious Disease", "Ophthalmology", "Legal Medicine", "Certified Nurse Midwife",
+                    "Preventive Medicine", "Registered Nurse", "Orthopedic Surgery", "Surgical Oncology", "General Surgery", "Nurse", "Obstetrics/Gynecology", "Oral Surgery (dentists only)",
+                    "Psychologist (billing independently)", "Optometry", "Critical Care (Intensivists)", "Neurology", "Specialist",
+                    "Clinic/Center", "Thoracic Surgery", "Neuropsychiatry", "Nurse Practitioner", "Interventional Radiology", "Emergency Medicine", "Family Practice",
+                    "Nephrology", "Diagnostic Radiology", "Cardiac Surgery", "Certified Clinical Nurse Specialist", "Family Medicine" ]
+
+    # Dictionary to pass the values to the HTML
     context = {
         "prescriber" : data,
-        "specialty" : specialty,
+        "specialty" : lsSpecialty,
 
     }
     return render(request, 'homepages/showPrescribers.html', context)
@@ -139,6 +179,13 @@ def filterDrugPageView(request) :
 
 # View function to add a prescriber
 def addPrescriberPageView(request):
+
+    return render(request, 'homepages/addPrescriber.html')
+
+
+
+    # View function to add a prescriber
+def additionPrescriberPageView(request):
     if request.method == 'POST' :
         prescriber = Prescriber()
         prescriber.npi = request.POST['NPI']
@@ -161,7 +208,7 @@ def addPrescriberPageView(request):
     context = {
 
     }
-    return render(request, 'homepages/addPrescriber.html', context)
+    return addPageView(request)
 
 
 # View function to display the edit prescriber html
@@ -217,3 +264,8 @@ def deletePageView(request, prescriber_id):
 # View function to display the edit prescriber html
 def deletemessagePageView(request) : 
     return render(request, 'homepages/delete.html')
+
+
+# View function to display the edit prescriber html
+def addPageView(request) : 
+    return render(request, 'homepages/add.html')

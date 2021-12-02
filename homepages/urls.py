@@ -1,7 +1,7 @@
 # Import the django.url and views function
 from django.urls import path
 from .views import indexPageView
-from .views import drugLibraryPageView, prescribersPageView, drugDetailsPageView, deletePageView
+from .views import drugLibraryPageView, prescribersPageView, drugDetailsPageView, deletePageView, additionPrescriberPageView
 from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView, filterDrugPageView, editPrescriberPageView, updatePrescriberPageView
 
 
@@ -14,6 +14,7 @@ urlpatterns = [
     path("viewprescribers/<int:prescriber_id>", viewPrescriberPageView, name="viewPrescriber"), # route to view the prescriber details
     path("filterprescriber/", filterPrescriberPageView, name="filterprescriber"), # route for the filter prescriber details 
     path("addPrescriber/", addPrescriberPageView, name="addPrescriber"), # route for the filter prescriber details
+    path("additionprescriber/", additionPrescriberPageView, name="additionprescriber"), # route for the filter prescriber details
     path("filterdrug/", filterDrugPageView, name="filterdrug"),  # route for the filter drug details     
     path("editPrescriber/<int:prescriber_id>", editPrescriberPageView, name="editPrescriber"),   
     path("updatePrescriber/", updatePrescriberPageView, name="updatePrescriber"),

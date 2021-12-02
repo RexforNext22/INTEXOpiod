@@ -30,8 +30,9 @@ The page inherits form the base.html
     <label for="specialty">Specialty</label>
     <select name="specialty" id="specialty">
         <option value="">None</option>
-        {% for specialty in specialty %}
-         <option value="{{ specialty.specialty }}">{{ specialty.specialty }}</option>
+        
+        {% for specialty in specialty%}
+         <option value="{{ specialty }}">{{ specialty }}</option>
         {% endfor %}
 
     </select><br><br>
