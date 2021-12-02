@@ -62,12 +62,13 @@ def viewPrescriberPageView(request, prescriber_id) :
     Query1 = 'SELECT npi, drugname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = ' + str(prescriber_id)
     data2 = Prescriber.objects.raw(Query1)
 
-    # Query2 = 'SELECT drugid, round(AVG(qty),0) AS DrugAverage FROM pd_triple WHERE drugid = 2 GROUP BY drugid'
+    # Query2 = 'SELECT drugid, round(AVG(qty),0) AS DrugAverage FROM pd_triple GROUP BY drugid HAVING drugid IN (SELECT pd_triple.drugid FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  WHERE pd_triple.qty > 0 AND npi =' + str(prescriber_id) + ')'
     # data3 = Triple.objects.raw(Query2)
+
     context = {
         "prescriber" : data,
         "drugsprescribed" : data2,
-        # "average" : data3
+        # "average" : 
         
     }
     return render(request, 'homepages/prescriberDetails.html', context)
@@ -147,16 +148,15 @@ def addPrescriberPageView(request):
         prescriber.state_id = request.POST['state']
         prescriber.credentials = request.POST['credentials']
         prescriber.specialty = request.POST['specialty']
+        prescriber.totalprescriptions = request.POST['totalprescriptions']
+        sOpioid = request.POST.get("sOpioid")
 
-        sOpioid = request.GET.get("opioid")
+        if sOpioid in ["yes"]:
+            sOpioid_Output = "TRUE"
+        if sOpioid in ["no"]:
+            sOpioid_Output = "FALSE"
 
-        if sOpioid != '' :
-            if sOpioid == 'yes' :
-                sOpioid = "True"
-            else :
-                sOpioid = "False"
-
-        prescriber.isopioidprescriber = sOpioid
+        prescriber.isopioidprescriber = sOpioid_Output
         prescriber.save() 
     context = {
 
@@ -187,15 +187,14 @@ def updatePrescriberPageView(request) :
         prescriber.credentials = request.POST['credentials']
         prescriber.specialty = request.POST['specialty']
         prescriber.totalprescriptions = request.POST['totalprescriptions']
-        sOpioid = request.GET.get("opioid")
+        sOpioid = request.POST.get("opioid")
+        
+        if sOpioid in ["yes"]:
+            sOpioid_Output = "TRUE"
+        if sOpioid in ["no"]:
+            sOpioid_Output = "FALSE"
 
-        if sOpioid != '' :
-            if sOpioid == 'yes' :
-                sOpioid = "True"
-            else :
-                sOpioid = "False"
-
-        prescriber.isopioidprescriber = sOpioid
+        prescriber.isopioidprescriber = sOpioid_Output
         
         prescriber.save()
      

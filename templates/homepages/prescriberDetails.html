@@ -33,7 +33,13 @@
 
 
   {% endfor %}
-  {{ average.drugaverage }}
+  {% for average in average %}
+
+  {{ average.DrugAverage }}
+
+
+{% endfor %}
+
 </p>
 </div>
 {% endblock %}
