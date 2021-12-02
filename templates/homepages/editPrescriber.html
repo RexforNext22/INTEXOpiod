@@ -3,10 +3,10 @@
 <br /><br /><br /><br><br>
 <div class="container" style="margin: auto; align: center" ><br><br>
     <h4>Update Prescriber</h4>
-    <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'updatePrescriber' %}">{% csrf_token %}
+    <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'updatePrescriber' prescriber_id=prescriber.npi %}">{% csrf_token %}
 
         <label for="NPI">NPI:</label>
-        <input type="text" id="NPI" name="NPI" autofocus>
+        <input type="text" id="NPI" name="NPI" value={{ prescriber.npi }} autofocus>
         <br><br>
     
         <label for="first_name">First Name:</label>
@@ -33,11 +33,16 @@
         <input type="text" id="specialty" name="specialty" value={{ prescriber.specialty }}>
         <br><br>
 
-        <label for="Opioid">Opioid Prescriber</label><br>
-            <input type="radio" id="opioid" name="opioid" value="yes">
+        <label for="opioid">Opioid Prescriber</label><br>
+            <input type="radio" id="opioid" name="opioid"
+            {% if prescriber.isopioidprescriber == 'TRUE' %}
+            checked
+            {% endif %}>
             <label for="opioid">Yes</label><br>
-            <input type="radio" id="Opioid" name="Opioid" value="no">
-            <label for="Opioid">No</label><br>
+            <input type="radio" id="opioid" name="opioid" {% if prescriber.isopioidprescriber == 'FALSE' %}
+            checked
+            {% endif %} >
+            <label for="opioid">No</label><br>
     
         <button class="btn btn-primary" type="submit">Add</button>
     </form>

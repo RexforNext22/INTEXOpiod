@@ -173,23 +173,24 @@ def editPrescriberPageView(request, prescriber_id) :
     data = Prescriber.objects.get(npi = prescriber_id)
     context = {
         "prescriber" : data,
+
     }
 
     return render(request, 'homepages/editPrescriber.html', context)
 
-# def updatePrescriberPageView(request) :
-#     if request.method == 'POST' :
-#         cust_id = request.POST['cust_id']
+def updatePrescriberPageView(request, prescriber_id) :
+    if request.method == 'POST' :
+        prescriber_id = request.POST['prescriber_id']
 
-#         customer = Customer.objects.get(id=cust_id)
+        prescriber = Prescriber.objects.get(id=prescriber_id)
 
-#         customer.first_name = request.POST['first_name']
-#         customer.last_name = request.POST['last_name']
-#         customer.username = request.POST['username']
-#         customer.password = request.POST['password']
-#         customer.email = request.POST['email']
-#         customer.phone = request.POST['phone']
+        prescriber.fname = request.POST['first_name']
+        prescriber.lname = request.POST['last_name']
+        prescriber.gender = request.POST['gender']
+        prescriber.state_id = request.POST['state']
+        prescriber.credentials = request.POST['credentials']
+        prescriber.specialty = request.POST['specialty']
 
-#         customer.save()    
+        prescriber.save()    
 
-#     return render(request, 'homepages/showPrescribers.html')
+    return render(request, 'homepages/showPrescribers.html')
