@@ -181,7 +181,7 @@ def editPrescriberPageView(request, prescriber_id) :
 def updatePrescriberPageView(request, prescriber_id) :
     if request.method == 'POST' :
         
-        prescriber = Prescriber.objects.get(id=prescriber_id)
+        prescriber = Prescriber.objects.get(npi=prescriber_id)
         prescriber.npi = request.POST['NPI']
         prescriber.fname = request.POST['first_name']
         prescriber.lname = request.POST['last_name']
@@ -189,7 +189,15 @@ def updatePrescriberPageView(request, prescriber_id) :
         prescriber.state_id = request.POST['state']
         prescriber.credentials = request.POST['credentials']
         prescriber.specialty = request.POST['specialty']
+        sOpioid = request.GET.get("opioid")
 
+        if sOpioid != '' :
+            if sOpioid == 'yes' :
+                sOpioid = True
+            else :
+                sOpioid = False
+
+        prescriber.isopioidprescriber = sOpioid
         prescriber.save()    
 
     return render(request, 'homepages/showPrescribers.html')

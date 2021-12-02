@@ -37,11 +37,11 @@
             <input type="radio" id="opioid" name="opioid"
             {% if prescriber.isopioidprescriber == 'TRUE' %}
             checked
-            {% endif %}>
+            {% endif %} value="yes">
             <label for="opioid">Yes</label><br>
             <input type="radio" id="opioid" name="opioid" {% if prescriber.isopioidprescriber == 'FALSE' %}
             checked
-            {% endif %} >
+            {% endif %} value="no">
             <label for="opioid">No</label><br>
     
         <button class="btn btn-primary" type="submit">Add</button>
