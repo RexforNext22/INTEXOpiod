@@ -1,8 +1,10 @@
 # Import the django.url and views function
 from django.urls import path
 from .views import indexPageView
-from .views import drugLibraryPageView, prescribersPageView, drugDetailsPageView, deletePageView, additionPrescriberPageView
-from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView, filterDrugPageView, editPrescriberPageView, updatePrescriberPageView
+from .views import drugLibraryPageView, prescribersPageView 
+from .views import drugDetailsPageView, deletePageView, additionPrescriberPageView, predictionPageView, makePredictionPageView
+from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView 
+from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView
 
 
 # Create the different path for index and about 
@@ -16,9 +18,11 @@ urlpatterns = [
     path("addPrescriber/", addPrescriberPageView, name="addPrescriber"), # route for the filter prescriber details
     path("additionprescriber/", additionPrescriberPageView, name="additionprescriber"), # route for the filter prescriber details
     path("filterdrug/", filterDrugPageView, name="filterdrug"),  # route for the filter drug details     
-    path("editPrescriber/<int:prescriber_id>", editPrescriberPageView, name="editPrescriber"),   
-    path("updatePrescriber/", updatePrescriberPageView, name="updatePrescriber"),
-    path("delete/<int:prescriber_id>", deletePageView, name="delete"),     
+    path("editPrescriber/<int:prescriber_id>", editPrescriberPageView, name="editPrescriber"), # route to show the edit prescriber view function  
+    path("updatePrescriber/", updatePrescriberPageView, name="updatePrescriber"), # route to update the prescriber profile
+    path("delete/<int:prescriber_id>", deletePageView, name="delete"), # route to delete the prescribe profile
+    path("prediction/", predictionPageView, name="prediction"),  # route to see the prediction model
+    path("makePrediction/", makePredictionPageView, name="makePrediction"), # route to run the prediction model     
  
 ]
 

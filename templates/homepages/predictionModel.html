@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+  {% block content %}
+    <br><br><br>
+    <div class="container" style="margin: auto; align: center" ><br><br>
+      <h4>Make a Prediction</h4>
+      <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'makePrediction' %}">{% csrf_token %}
+  
+          <label for="drug_id">Drug ID</label>
+          <input type="text" id="drug_id" name="drug_id" autofocus>
+          <br><br>
+      
+          <label for="drug_name">Drug Name:</label>
+          <input type="text" id="drug_name" name="drug_name">
+          <br><br>
+      
+          <label for="state">State (Abbrev):</label>
+          <input type="text" id="state" name="state">
+          <br><br>
+      
+          <label for="population">Population</label>
+          <input type="text" id="population" name="population">
+          <br><br>
+      
+          <label for="deaths">Deaths:</label>
+          <input type="text" id="deaths" name="deaths">
+          <br><br>
+  
+          <label for="totalprescriptions">Total Prescription:</label>
+          <input type="text" id="totalprescriptions" name="totalprescriptions">
+          <br><br>
+
+          <label for="opioid">Opioid Prescriber</label><br>
+          <input type="radio" id="opioid" name="opioid" value="yes">
+          <label for="opioid_yes">Yes</label><br>
+          <input type="radio" id="opioid" name="opioid" value="no">
+          <label for="opioid">No</label><br><br>
+
+          <button class="btn btn-primary" type="submit">Make Predictions</button>
+      </form>
+  
+  </div>
+
+
+  {% endblock %}
+

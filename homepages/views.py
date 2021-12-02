@@ -269,3 +269,63 @@ def deletemessagePageView(request) :
 # View function to display the edit prescriber html
 def addPageView(request) : 
     return render(request, 'homepages/add.html')
+
+# View function to display the prediction model
+def predictionPageView(request) : 
+    return render(request, 'homepages/predictionModel.html')
+
+# View function to make a prediction
+def makePredictionPageView(request) : 
+    import requests
+    import json
+
+    # Grab the values from the prediction form
+    drug_id = request.POST['drug_id']
+    drug_name = request.POST['drug_name']
+    state = request.POST['state']
+    population = request.POST['population']
+    deaths = request.POST['deaths']
+    totalprescriptions = request.POST['totalprescriptions']
+    sOpioid = request.POST.get("opioid")
+        
+    # Determine whether they area opioid provider or not
+    if sOpioid in ["yes"]:
+        sOpioid_Output = "TRUE"
+    if sOpioid in ["no"]:
+        sOpioid_Output = "FALSE"
+
+    isopioidprescriber = sOpioid_Output
+    
+    url = "http://48387025-e221-44e6-9b7a-696b508b797f.eastus2.azurecontainer.io/score"
+
+    payload = json.dumps({
+        "Inputs": { 
+            "WebServiceInput1": 
+            [{"drugname": drug_name, 
+            "stateabbrev": state, 
+            "population": population, 
+            "isopioidprescriber": isopioidprescriber,
+            "deaths": deaths,
+            "drugid": drug_id,
+            "totalprescriptions": totalprescriptions
+            }]
+            },
+            "GlobalParameters": {}
+    })
+    headers = {'Content-Type': 'application/json',
+        'Authorization': 'Bearer FPY7svgpZAWBaDSROxBFlgHgVytRPnU3'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    json_data = json.loads(response.text)
+
+    for iCount in range(0, 1):
+        sOutput = "Chances of prescriber prescribing an opioid: " + str(round(float((json_data['Results']['WebServiceOutput0'][iCount]['Scored Labels']) * 100), 2)) + "%"
+
+    context = {
+        "sOutput" : sOutput
+    }
+    return render(request, 'homepages/showPrediction.html', context)
+
+
