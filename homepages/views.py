@@ -279,7 +279,12 @@ def makePredictionPageView(request) :
 
     # Grab the values from the prediction form
     drug_name = request.POST['drug_name']
-    drug_id = Drug.objects.get(drugname=drug_name)
+    
+    # Transform the variable to upper case
+    drug_name = drug_name.upper()
+    
+    drug_object = Drug.objects.get(drugname=drug_name)
+    drug_id = drug_object.drugid
     state = request.POST['state']
     population = request.POST['population']
     deaths = request.POST['deaths']
@@ -291,9 +296,7 @@ def makePredictionPageView(request) :
         sOpioid_Output = "TRUE"
     if sOpioid in ["no"]:
         sOpioid_Output = "FALSE"
-    
-    # Transform the variable to upper case
-    drug_name = drug_name.upper()
+
 
     # Set the sOpioid to the isopioidprescriber
     isopioidprescriber = sOpioid_Output
