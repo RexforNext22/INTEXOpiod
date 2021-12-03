@@ -437,9 +437,7 @@ def makeRecommenderPageView(request) :
 
 
  
-    Output = 'Recommendation 1: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 1']) + 'Recommendation 2: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 2']) + 'Recommendation 3: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 3']) + 'Recommendation 4: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 4']) + 'Recommendation 5: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 5'])
-
-    
+    Output = obj
 
     context = {
         "output" : Output
