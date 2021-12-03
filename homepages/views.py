@@ -98,6 +98,10 @@ def filterPrescriberPageView(request) :
     sGender = request.GET["gender"]
     sCredentials = request.GET['credentials']
     sLocation = request.GET['location']
+
+    # Transform to upper case
+    sLocation = sLocation.upper()
+
     sSpeciality = request.GET['specialty']
 
     # Build the raw query
