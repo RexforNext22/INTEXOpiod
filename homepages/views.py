@@ -61,7 +61,7 @@ def drugDetailsPageView(request, drug_id):
     else:
         opioid = "Not Opioid"
   
-    query1 = 'SELECT npi, fname, lname, qty FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_drugs.drugid =' + str(drug_id) + ' ORDER BY pd_triple.qty DESC LIMIT 10'
+    query1 = 'SELECT npi, fname, lname, qty FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE pd_drugs.drugid =' + str(drug_id) + ' ORDER BY pd_triple.qty DESC LIMIT 10'
     data2 = Prescriber.objects.raw(query1)
     context = {
         "drug" : data,
@@ -98,6 +98,10 @@ def filterPrescriberPageView(request) :
     sGender = request.GET["gender"]
     sCredentials = request.GET['credentials']
     sLocation = request.GET['location']
+
+    # Transform to upper case
+    sLocation = sLocation.upper()
+
     sSpeciality = request.GET['specialty']
 
     # Build the raw query
@@ -282,10 +286,12 @@ def makePredictionPageView(request) :
     
     # Transform the variable to upper case
     drug_name = drug_name.upper()
-    
+
     drug_object = Drug.objects.get(drugname=drug_name)
     drug_id = drug_object.drugid
     state = request.POST['state']
+    # Transform the variable to upper case
+    state = state.upper()
     population = request.POST['population']
     deaths = request.POST['deaths']
     totalprescriptions = request.POST['totalprescriptions']
@@ -333,4 +339,110 @@ def makePredictionPageView(request) :
     }
     return render(request, 'homepages/showPrediction.html', context)
 
+# View function to display the recommender model
+def showRecommenderPageView(request) : 
+    return render(request, 'homepages/showRecommender.html')
+
+
+def makeRecommenderPageView(request) : 
+    # Grab the values from the prediction form
+    drug_name = request.POST['drug_name']
+    
+    # Transform the variable to upper case
+    drug_name = drug_name.upper()
+
+
+    oDrug = Drug.objects.get(drugname = drug_name)
+    oTriple = Triple.objects.get(drug_id = oDrug.drugid)
+    oPrescriber = Prescriber.objects.get(npi = oTriple.prescriber_id)
+
+    import requests
+    import json
+
+    url = "http://6d616252-db62-4f9c-be38-6ea57ff8e28a.eastus2.azurecontainer.io/score"
+
+    payload = json.dumps({
+    "Inputs": {
+        "WebServiceInput2": [
+        {
+            "drug_id": oTriple.drug_id,
+            "prescriber_id": oTriple.prescriber_id,
+            "qty": oTriple.qty
+        },
+        {
+            "drug_id": 221,
+            "prescriber_id": 1992883235,
+            "qty": 88
+        },
+        {
+            "drug_id": 48,
+            "prescriber_id": 1992883235,
+            "qty": 76
+        }
+        ],
+        "WebServiceInput0": [
+        {
+            "npi": oPrescriber.npi,
+            "gender": oPrescriber.gender,
+            "specialty": oPrescriber.specialty,
+            "isopioidprescriber": oPrescriber.isopioidprescriber,
+            "totalprescriptions": oPrescriber.totalprescriptions,
+        },
+        {
+            "npi": 1003009630,
+            "gender": "M",
+            "specialty": "Emergency Medicine",
+            "isopioidprescriber": "TRUE",
+            "totalprescriptions": 232
+        },
+        {
+            "npi": 1003016270,
+            "gender": "M",
+            "specialty": "Family Practice",
+            "isopioidprescriber": "TRUE",
+            "totalprescriptions": 2391
+        }
+        ],
+        "WebServiceInput1": [
+        {
+            "drugid": oDrug.drugid,
+            "isopioid": oDrug.isopioid,
+        },
+        {
+            "drugid": 3,
+            "isopioid": "True"
+        },
+        {
+            "drugid": 4,
+            "isopioid": "False"
+        }
+        ]
+    },
+    "GlobalParameters": {}
+    })
+    headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer z3zfGUqQ4DA1RrxhkUOHewtfN4RiwPTW'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    obj = json.loads(response.text)
+
+
+    for iCount in range(0,1):
+        print('Recommendation 1: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 1'] )
+        print('Recommendation 2: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 2'])
+        print('Recommendation 3: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 3'])
+        print('Recommendation 4: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 4'])
+        print('Recommendation 5: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 5']+ '\n')
+
+
+
+
+
+
+
+
+    return render(request, 'homepages/showRecommenderPageView.html')
 
