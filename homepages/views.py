@@ -76,17 +76,15 @@ def viewPrescriberPageView(request, prescriber_id) :
     data = Prescriber.objects.get(npi = prescriber_id)
 
     # Pull the prescribers for this drug
-    Query1 = 'SELECT npi, drugname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drugid = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = ' + str(prescriber_id)
+    Query1 = 'SELECT npi, drugname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = ' + str(prescriber_id)
     data2 = Prescriber.objects.raw(Query1)
 
-    # Query2 = 'SELECT drugid, round(AVG(qty),0) AS DrugAverage FROM pd_triple GROUP BY drugid HAVING drugid IN (SELECT pd_triple.drugid FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  WHERE pd_triple.qty > 0 AND npi =' + str(prescriber_id) + ')'
-    # data3 = Triple.objects.raw(Query2)
-
+    Query2 = 'SELECT 1 as id, pd_triple.drug_id, round(AVG(qty),0) AS avg FROM pd_triple GROUP BY drug_id HAVING drug_id IN (SELECT pd_triple.drug_id as id FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  WHERE pd_triple.qty > 0 AND npi =' + str(prescriber_id) + ')'
+    data3 = Triple.objects.raw(Query2)
     context = {
         "prescriber" : data,
         "drugsprescribed" : data2,
-        # "average" : 
-        
+        "average" : data3
     }
     return render(request, 'homepages/prescriberDetails.html', context)
 
@@ -286,7 +284,7 @@ def makePredictionPageView(request) :
     population = request.POST['population']
     deaths = request.POST['deaths']
     totalprescriptions = request.POST['totalprescriptions']
-    sOpioid = request.POST.get("opioid")
+    sOpioid = request.POST.get("sOpioid")
         
     # Determine whether they area opioid provider or not
     if sOpioid in ["yes"]:

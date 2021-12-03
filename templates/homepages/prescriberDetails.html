@@ -1,5 +1,15 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <br /><br /><br />
+<style>
+  th, td {
+    border: 1px solid black;
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+</style>
 <div class="container" style="align: center">
   <h1>Prescriber: {{ prescriber.fname }} {{ prescriber.lname }}</h1>     <!--The button to view the individual prescribers-->
   <a
@@ -24,22 +34,22 @@
     Credentials: {{ prescriber.credentials }}<br />
     Specialty: {{ prescriber.specialty }}<br />
     State: {{ prescriber.state }}<br />
-    Total Prescriptions: {{ prescriber.totalprescriptions }}<br /><br /><!--The names of the column names have to match perfectly-->
-    Drugs Prescribed: {{ listdrugs }}<br>
- 
-  {% for drugsprescribed in drugsprescribed %}
-
-    {{ drugsprescribed.drugname }} {{ average.drugaverage }}<br><!--The names of the column names have to match perfectly-->
-
-
-  {% endfor %}
-  {% for average in average %}
-
-  {{ average.DrugAverage }}
-
-
-{% endfor %}
-
-</p>
+    Total Prescriptions: {{ prescriber.totalprescriptions }}</p><br /><br /><br><br><!--The names of the column names have to match perfectly-->
+    <table class="center">
+        <tr>
+          <th>Drug Name</th>
+          {% for drugsprescribed in drugsprescribed %}
+          <th>{{ drugsprescribed.drugname }}</th>
+          {% endfor %}
+        </tr>
+        
+        <tr>
+          <th>Average Prescriptions</th>
+          {% for drugs in average%}
+          <th>{{drugs.avg}} prescriptions</th><!--The names of the column names have to match perfectly-->
+          {% endfor %}   
+        </tr>
+    </table>
+<br><br>
 </div>
 {% endblock %}

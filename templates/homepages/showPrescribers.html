@@ -60,10 +60,10 @@ The page inherits form the base.html
 
     <!--The button to view the individual prescribers-->
     <a
-      class="btn btn-primary"
+      class="btn btn-primary" style="float: right;"
       href="{% url 'viewPrescriber' prescriber_id=prescriber.npi %}"
       >View</a
-    >
+    ><br>
   </p>
   {% endfor %}
 </div>
