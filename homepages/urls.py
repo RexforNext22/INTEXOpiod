@@ -4,7 +4,7 @@ from .views import indexPageView
 from .views import drugLibraryPageView, prescribersPageView 
 from .views import drugDetailsPageView, deletePageView, additionPrescriberPageView, predictionPageView, makePredictionPageView
 from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView 
-from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView
+from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView, showRecommenderPageView, makeRecommenderPageView
 
 
 # Create the different path for index and about 
@@ -22,7 +22,9 @@ urlpatterns = [
     path("updatePrescriber/", updatePrescriberPageView, name="updatePrescriber"), # route to update the prescriber profile
     path("delete/<int:prescriber_id>", deletePageView, name="delete"), # route to delete the prescribe profile
     path("prediction/", predictionPageView, name="prediction"),  # route to see the prediction model
-    path("makePrediction/", makePredictionPageView, name="makePrediction"), # route to run the prediction model     
+    path("makePrediction/", makePredictionPageView, name="makePrediction"), # route to run the prediction model 
+    path("showRecommender/", showRecommenderPageView, name="showRecommender"), # route to show the recommender model 
+     path("makeRecommendation/", makeRecommenderPageView, name="makeRecommendation"), # route to show the recommender model  
  
 ]
 
