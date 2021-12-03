@@ -352,9 +352,14 @@ def makeRecommenderPageView(request) :
     drug_name = drug_name.upper()
 
 
-    oDrug = Drug.objects.get(drugname = drug_name)
-    oTriple = Triple.objects.get(drug_id = oDrug.drugid)
-    oPrescriber = Prescriber.objects.get(npi = oTriple.prescriber_id)
+    # oDrug = Drug.objects.get(drugname = drug_name)
+
+    # Query1 = "SELECT 1 as id, * FROM pd_triple WHERE drug_id =" + str(oDrug.drugid)
+
+    # oTriple = Triple.objects.raw(Query1)
+
+    # Query2 = ''
+    # oPrescriber = Prescriber.objects.get(npi = oTriple.prescriber)
 
     import requests
     import json
@@ -365,9 +370,9 @@ def makeRecommenderPageView(request) :
     "Inputs": {
         "WebServiceInput2": [
         {
-            "drug_id": oTriple.drug_id,
-            "prescriber_id": oTriple.prescriber_id,
-            "qty": oTriple.qty
+            "drug_id": 124,
+            "prescriber_id": 1992883235,
+            "qty": 49
         },
         {
             "drug_id": 221,
@@ -382,11 +387,11 @@ def makeRecommenderPageView(request) :
         ],
         "WebServiceInput0": [
         {
-            "npi": oPrescriber.npi,
-            "gender": oPrescriber.gender,
-            "specialty": oPrescriber.specialty,
-            "isopioidprescriber": oPrescriber.isopioidprescriber,
-            "totalprescriptions": oPrescriber.totalprescriptions,
+            "npi": 1003008475,
+            "gender": "F",
+            "specialty": "Nurse Practitioner",
+            "isopioidprescriber": "TRUE",
+            "totalprescriptions": 139
         },
         {
             "npi": 1003009630,
@@ -405,8 +410,8 @@ def makeRecommenderPageView(request) :
         ],
         "WebServiceInput1": [
         {
-            "drugid": oDrug.drugid,
-            "isopioid": oDrug.isopioid,
+            "drugid": 2,
+            "isopioid": "False"
         },
         {
             "drugid": 3,
@@ -430,19 +435,15 @@ def makeRecommenderPageView(request) :
     obj = json.loads(response.text)
 
 
-    for iCount in range(0,1):
-        print('Recommendation 1: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 1'] )
-        print('Recommendation 2: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 2'])
-        print('Recommendation 3: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 3'])
-        print('Recommendation 4: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 4'])
-        print('Recommendation 5: ' + obj['Results']['WebServiceOutput0'][iCount]['Recommended Item 5']+ '\n')
 
+ 
+    Output = 'Recommendation 1: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 1']) + 'Recommendation 2: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 2']) + 'Recommendation 3: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 3']) + 'Recommendation 4: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 4']) + 'Recommendation 5: ' + str(obj['Results']['WebServiceOutput0'][2]['Recommended Item 5'])
 
+    
 
+    context = {
+        "output" : Output
+    }
 
-
-
-
-
-    return render(request, 'homepages/showRecommenderPageView.html')
+    return render(request, 'homepages/viewRecommendation.html', context)
 
