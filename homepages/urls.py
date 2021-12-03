@@ -3,7 +3,7 @@ from django.urls import path
 from .views import indexPageView
 from .views import drugLibraryPageView, prescribersPageView 
 from .views import drugDetailsPageView, deletePageView, additionPrescriberPageView, predictionPageView, makePredictionPageView
-from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView 
+from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView, learnMorePageView 
 from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView, showRecommenderPageView, makeRecommenderPageView
 
 
@@ -24,7 +24,8 @@ urlpatterns = [
     path("prediction/", predictionPageView, name="prediction"),  # route to see the prediction model
     path("makePrediction/", makePredictionPageView, name="makePrediction"), # route to run the prediction model 
     path("showRecommender/", showRecommenderPageView, name="showRecommender"), # route to show the recommender model 
-     path("makeRecommendation/", makeRecommenderPageView, name="makeRecommendation"), # route to show the recommender model  
+    path("makeRecommendation/", makeRecommenderPageView, name="makeRecommendation"), # route to view the recommender model  
+    path("learnmore/", learnMorePageView, name="learnmore"), # route to view the recommender model  
  
 ]
 

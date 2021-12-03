@@ -343,7 +343,7 @@ def makePredictionPageView(request) :
 def showRecommenderPageView(request) : 
     return render(request, 'homepages/showRecommender.html')
 
-
+# View function to make the recommendation and display to user
 def makeRecommenderPageView(request) : 
     # Grab the values from the prediction form
     drug_name = request.POST['drug_name']
@@ -351,15 +351,18 @@ def makeRecommenderPageView(request) :
     # Transform the variable to upper case
     drug_name = drug_name.upper()
 
+    # Query information for the drug
+    oDrug = Drug.objects.get(drugname = drug_name)
 
-    # oDrug = Drug.objects.get(drugname = drug_name)
+    # Query information for the Tiple
+    oTriple = Triple.objects.all()
+    oTriple = oTriple.filter(drug = oDrug.drugid)[1]
+    print(oTriple.qty)
+    print(oTriple.prescriber_id)
+    print(oTriple.drug_id)
 
-    # Query1 = "SELECT 1 as id, * FROM pd_triple WHERE drug_id =" + str(oDrug.drugid)
-
-    # oTriple = Triple.objects.raw(Query1)
-
-    # Query2 = ''
-    # oPrescriber = Prescriber.objects.get(npi = oTriple.prescriber)
+    #Query information for the prescriber
+    oPrescriber = Prescriber.objects.get(npi = oTriple.prescriber_id)
 
     import requests
     import json
@@ -370,9 +373,9 @@ def makeRecommenderPageView(request) :
     "Inputs": {
         "WebServiceInput2": [
         {
-            "drug_id": 124,
-            "prescriber_id": 1992883235,
-            "qty": 49
+            "drug_id": oTriple.drug_id,
+            "prescriber_id": oTriple.prescriber_id,
+            "qty": oTriple.qty
         },
         {
             "drug_id": 221,
@@ -387,11 +390,11 @@ def makeRecommenderPageView(request) :
         ],
         "WebServiceInput0": [
         {
-            "npi": 1003008475,
-            "gender": "F",
-            "specialty": "Nurse Practitioner",
-            "isopioidprescriber": "TRUE",
-            "totalprescriptions": 139
+            "npi": oPrescriber.npi,
+            "gender": oPrescriber.gender,
+            "specialty": oPrescriber.specialty,
+            "isopioidprescriber": oPrescriber.isopioidprescriber,
+            "totalprescriptions": oPrescriber.totalprescriptions,
         },
         {
             "npi": 1003009630,
@@ -410,8 +413,8 @@ def makeRecommenderPageView(request) :
         ],
         "WebServiceInput1": [
         {
-            "drugid": 2,
-            "isopioid": "False"
+            "drugid": oDrug.drugid,
+            "isopioid": oDrug.isopioid
         },
         {
             "drugid": 3,
@@ -434,14 +437,39 @@ def makeRecommenderPageView(request) :
 
     obj = json.loads(response.text)
 
+    #Find the prescriber information
+    prescriber1 = Prescriber.objects.get(npi = obj['Results']['WebServiceOutput0'][1]['Recommended Item 1'])
+    prescriber1 = str(prescriber1.fname) + " " + str(prescriber1.lname)
+    prescriber2 = Prescriber.objects.get(npi = obj['Results']['WebServiceOutput0'][1]['Recommended Item 2'])
+    prescriber2 = str(prescriber2.fname) + " " + str(prescriber2.lname)
+    prescriber3 = Prescriber.objects.get(npi = obj['Results']['WebServiceOutput0'][1]['Recommended Item 3'])
+    prescriber3 = str(prescriber3.fname) + " " + str(prescriber3.lname)
+    prescriber4 = Prescriber.objects.get(npi = obj['Results']['WebServiceOutput0'][1]['Recommended Item 4'])
+    prescriber4 = str(prescriber4.fname) + " " + str(prescriber4.lname)
+    prescriber5 = Prescriber.objects.get(npi = obj['Results']['WebServiceOutput0'][1]['Recommended Item 5'])
+    prescriber5 = str(prescriber5.fname) + " " + str(prescriber5.lname)
 
+    # Create the output varaibles
+    recommendation1 = 'Prescriber 1: ' + prescriber1
+    recommendation2 = 'Prescriber 2: ' + prescriber2
+    recommendation3 = 'Prescriber 3: ' + prescriber3
+    recommendation4 = 'Prescriber 4: ' + prescriber4
+    recommednation5 = 'Prescriber 5: ' + prescriber5
 
- 
-    Output = obj
-
+    # Pass the output varaibles to the dictionary context that gets passed with the request
     context = {
-        "output" : Output
+        "recommendation1" : recommendation1,
+        "recommendation2" : recommendation2,
+        "recommendation3" : recommendation3,
+        "recommendation4" : recommendation4,
+        "recommednation5" : recommednation5
     }
 
     return render(request, 'homepages/viewRecommendation.html', context)
+
+
+
+# View function to learn more
+def learnMorePageView(request) : 
+    return render(request, 'homepages/learnmore.html')
 
