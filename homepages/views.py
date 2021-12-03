@@ -282,10 +282,12 @@ def makePredictionPageView(request) :
     
     # Transform the variable to upper case
     drug_name = drug_name.upper()
-    
+
     drug_object = Drug.objects.get(drugname=drug_name)
     drug_id = drug_object.drugid
     state = request.POST['state']
+    # Transform the variable to upper case
+    state = state.upper()
     population = request.POST['population']
     deaths = request.POST['deaths']
     totalprescriptions = request.POST['totalprescriptions']
