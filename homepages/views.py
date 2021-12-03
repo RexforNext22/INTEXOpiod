@@ -278,8 +278,8 @@ def makePredictionPageView(request) :
     import json
 
     # Grab the values from the prediction form
-    drug_id = request.POST['drug_id']
     drug_name = request.POST['drug_name']
+    drug_id = Drug.objects.get(drugname=drug_name)
     state = request.POST['state']
     population = request.POST['population']
     deaths = request.POST['deaths']
@@ -291,7 +291,11 @@ def makePredictionPageView(request) :
         sOpioid_Output = "TRUE"
     if sOpioid in ["no"]:
         sOpioid_Output = "FALSE"
+    
+    # Transform the variable to upper case
+    drug_name = drug_name.upper()
 
+    # Set the sOpioid to the isopioidprescriber
     isopioidprescriber = sOpioid_Output
     
     url = "http://48387025-e221-44e6-9b7a-696b508b797f.eastus2.azurecontainer.io/score"

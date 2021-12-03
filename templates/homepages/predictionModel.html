@@ -8,10 +8,6 @@
       <h4>Make a Prediction</h4>
       <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'makePrediction' %}">{% csrf_token %}
   
-          <label for="drug_id">Drug ID</label>
-          <input type="text" id="drug_id" name="drug_id" autofocus>
-          <br><br>
-      
           <label for="drug_name">Drug Name:</label>
           <input type="text" id="drug_name" name="drug_name">
           <br><br>

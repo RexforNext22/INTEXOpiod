@@ -3,13 +3,24 @@
 
 
   {% block content %}
+  <style>
+    .center {
+      display: flex;
+      justify-content: center;
+    }
+
+    .statfonts {
+      font-size: 14px;
+
+    }
+  </style>
                 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="container text-center text-md-left" data-aos="fade-up">
       <h1>Welcome to the <span>Portal</span></h1>
       <h2>Find and drug and prescriber that's right for you</h2>
-      <a href="#about" class="btn-get-started scrollto"> Search</a>
+      <a href="{%url 'druglibrary'%}" class="btn-get-started scrollto"> Search</a>
     </div>
   </section><!-- End Hero -->
 
@@ -21,31 +32,31 @@
 
         <div class="section-title">
           <h2>What We Do</h2>
-          <p>Magnam dolores commodi suscipit consequatur ex aliquid</p>
+          <p>An integrative approach to fighting back against the opioid epidemic in America using big data and analytics.</p>
         </div>
 
         <div class="row">
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="icon-box">
               <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+              <h4><a href="{%url 'prescribers'%}">Find a Prescriber</a></h4>
+              <p>Our Prescirber database allows you to find the right prescriber for the prescription you need.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Sed ut perspiciatis</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+              <h4><a href="{%url 'druglibrary'%}">Find a Drug</a></h4>
+              <p>Find the drug along with information about the top prescribers</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+              <h4><a href="{%url 'prediction'%}">Make a Prediction</a></h4>
+              <p>Our start of the art model to predict which prescriber will write a prescription for opioids, giving you power to avoid the risk of addiction and misuse.</p>
             </div>
           </div>
 
@@ -60,16 +71,17 @@
 
         <div class="row">
           <div class="col-lg-6">
-            <img src="{%static 'assets/img/about.jpg'%}" class="img-fluid" alt="">
+            <img src="{%static 'assets/img/epidemic.png'%}" class="img-fluid" alt="">
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
             <h3>About Us</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              The Drug and Opioid Portal's goal is to fight against the opioid epidemic in the U.S. by using
+              data and analytics. The Portal
             </p>
             <ul>
-              <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+              <li><i class="bx bx-check-double"></i> Access to a complete database of prescribers in the U.S.</li>
+              <li><i class="bx bx-check-double"></i> Use of the latest machine learning algorithm to help predict situations where misuse could take place.</li>
             </ul>
             <div class="row icon-boxes">
               <div class="col-md-6">
@@ -87,7 +99,7 @@
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section><br><!-- End About Section -->
 
     {% comment %} <!-- ======= Skills Section ======= -->
     <section id="skills" class="skills">
@@ -151,40 +163,41 @@
     </section><!-- End Skills Section --> {% endcomment %}
 
     <!-- ======= Counts Section ======= -->
+    <h2 class="center">Striking Statisitcs</h2><br>
     <section id="counts" class="counts">
       <div class="container">
 
         <div class="row">
 
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6, center">
             <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Happy Clients</p>
+              {% comment %} <i class="bi bi-emoji-smile"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="100000" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Deaths</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-6">
             <div class="count-box">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
+              {% comment %} <i class="bi bi-journal-richtext"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="30" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Percent Increase</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-6 mt-5 mt-lg-0">
             <div class="count-box">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
+              {% comment %} <i class="bi bi-headset"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="273" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Deaths Per Day</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-6 mt-5 mt-lg-0">
             <div class="count-box">
-              <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hard Workers</p>
+              {% comment %} <i class="bi bi-people"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Million People Misused Precription Opioids (2016)</p>
             </div>
           </div>
 
@@ -556,14 +569,14 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row center">
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
               <div class="member">
                 <img src="{% static 'assets/img/guiterrez.jpg'%}" alt="">
                 <h4>Kevin Guiterrez</h4>
-                <span>Chief Executive Officer</span>
+                <span>Chief Technology Officer</span>
                 <p>
-                  Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut aut aut
+                 Kevin Guiterrez 
                 </p>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
