@@ -332,7 +332,7 @@ def makePredictionPageView(request) :
     json_data = json.loads(response.text)
 
     for iCount in range(0, 1):
-        sOutput = "Chances of prescriber prescribing an opioid: " + str(round(float((json_data['Results']['WebServiceOutput0'][iCount]['Scored Labels']) * 100), 2)) + "%"
+        sOutput = "Chances of presciption for an opioid: " + str(round(float((json_data['Results']['WebServiceOutput0'][iCount]['Scored Labels']) * 100), 2)) + "%"
 
     context = {
         "sOutput" : sOutput
@@ -462,7 +462,8 @@ def makeRecommenderPageView(request) :
         "recommendation2" : recommendation2,
         "recommendation3" : recommendation3,
         "recommendation4" : recommendation4,
-        "recommednation5" : recommednation5
+        "recommednation5" : recommednation5,
+        "drug_name" : drug_name
     }
 
     return render(request, 'homepages/viewRecommendation.html', context)

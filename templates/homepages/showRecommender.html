@@ -5,7 +5,10 @@
   {% block content %}
     <br><br><br>
     <div class="container" style="margin: auto; align: center" ><br><br>
-      <h4>Find a Recommendation</h4>
+      <h4>Prescriber Recommendation</h4>
+      <p>Are you looking for a prescriber for a certain drug? The recommender will provide you with certain prescribers. 
+          If you are worried a prescriber might write you a presciption for an opioid when you don't need it, 
+          the recommender tool can help.</p><br>
       <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'makeRecommendation' %}">{% csrf_token %}
 
 
