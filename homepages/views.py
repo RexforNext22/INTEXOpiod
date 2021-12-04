@@ -29,6 +29,7 @@ def prescribersPageView(request) :
     data = Prescriber.objects.all()
     sQuery1 = "SELECT DISTINCT npi, specialty FROM pd_prescriber" # FIX THIS LATER
 
+    # Dictionary with the specialities
     lsSpecialty = ["Geriatric Psychiatry", "Hematology", "Podiatry", "Psychiatry & Neurology",
                     "Cardiology", "General Acute Care Hospital", "Pediatric Medicine", "Colorectal Surgery (formerly proctology)", "General Practice",
                     "Gastroenterology", "Multispecialty Clinic/Group Practice", "Interventional Pain Management", "CRNA", "Hospitalist",
@@ -290,6 +291,7 @@ def makePredictionPageView(request) :
     drug_object = Drug.objects.get(drugname=drug_name)
     drug_id = drug_object.drugid
     state = request.POST['state']
+
     # Transform the variable to upper case
     state = state.upper()
     population = request.POST['population']
@@ -331,9 +333,11 @@ def makePredictionPageView(request) :
 
     json_data = json.loads(response.text)
 
+    # Create the output message to the screen
     for iCount in range(0, 1):
         sOutput = "Chances of presciption for an opioid: " + str(round(float((json_data['Results']['WebServiceOutput0'][iCount]['Scored Labels']) * 100), 2)) + "%"
 
+    # Dictionary to pass to the prediction page
     context = {
         "sOutput" : sOutput
     }
@@ -373,7 +377,7 @@ def makeRecommenderPageView(request) :
     "Inputs": {
         "WebServiceInput2": [
         {
-            "drug_id": oTriple.drug_id,
+            "drug_id": oTriple.drug_id, #Input the triple information into the web input of our recommender
             "prescriber_id": oTriple.prescriber_id,
             "qty": oTriple.qty
         },
