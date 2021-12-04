@@ -6,7 +6,7 @@ from django.template import RequestContext
 from .models import Drug
 from .models import Triple
 from .models import State
-from .models import Prescriber
+from .models import Prescriber, Credential, CredPres
 
 # Create your views here.
 
