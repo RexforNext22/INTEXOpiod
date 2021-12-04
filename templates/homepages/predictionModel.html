@@ -94,23 +94,23 @@
       <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'makePrediction' %}">{% csrf_token %}
   
           <label style="width: 250px" for="drug_name">One Drug the Prescriber Issues:</label>
-          <input style="width: 250px" type="text" id="drug_name" name="drug_name">
+          <input style="width: 250px" type="text" id="drug_name" name="drug_name" autofocus required>
           <br><br>
       
           <label style="width: 250px" for="state">State (Abbrev):</label>
-          <input style="width: 250px" type="text" id="state" name="state">
+          <input style="width: 250px" type="text" id="state" name="state" required>
           <br><br>
       
           <label style="width: 250px" for="population">Population</label>
-          <input style="width: 250px" type="text" id="population" name="population">
+          <input style="width: 250px" type="text" id="population" name="population" required>
           <br><br>
       
           <label style="width: 250px" for="deaths">Deaths (From Opioid Overdose):</label>
-          <input style="width: 250px" type="text" id="deaths" name="deaths">
+          <input style="width: 250px" type="text" id="deaths" name="deaths" required>
           <br><br>
   
           <label style="width: 250px" for="totalprescriptions">Total Prescription:</label>
-          <input style="width: 250px" type="text" id="totalprescriptions" name="totalprescriptions">
+          <input style="width: 250px" type="text" id="totalprescriptions" name="totalprescriptions" required>
           <br><br>
 
           <label style="width: 250px" for="sOpioid">Opioid Prescriber</label><br>
@@ -121,7 +121,7 @@
           border: 2px solid var(--main-text);
           border-radius: 50%;
           position: relative;
-          outline: none;" type="radio" id="sOpioid" name="sOpioid" value="yes">
+          outline: none;" type="radio" id="sOpioid" name="sOpioid" value="yes" required>
           <label style="width: 250px" for="opioid_yes">Yes</label><br>
           <input style="appearance: none;
           cursor: pointer;
@@ -130,7 +130,7 @@
           border: 2px solid var(--main-text);
           border-radius: 50%;
           position: relative;
-          outline: none;" type="radio" id="sOpioid" name="sOpioid" value="no">
+          outline: none;" type="radio" id="sOpioid" name="sOpioid" value="no" required>
           <label style="width: 250px" for="sOpioid">No</label><br><br>
 
           <button class="button" type="submit">Make Predictions</button>

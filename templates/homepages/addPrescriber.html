@@ -91,35 +91,35 @@
     <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'additionprescriber' %}">{% csrf_token %}
 
         <label style="width: 250px" for="NPI">NPI:</label>
-        <input style="width: 250px" type="text" id="NPI" name="NPI" autofocus>
+        <input style="width: 250px" type="text" id="NPI" name="NPI" autofocus required>
         <br><br>
     
         <label style="width: 250px" for="first_name">First Name:</label>
-        <input style="width: 250px" type="text" id="first_name" name="first_name" >
+        <input style="width: 250px" type="text" id="first_name" name="first_name" required>
         <br><br>
     
         <label style="width: 250px" for="last_name">Last Name:</label>
-        <input style="width: 250px" type="text" id="last_name" name="last_name">
+        <input style="width: 250px" type="text" id="last_name" name="last_name" required>
         <br><br>
     
         <label style="width: 250px" for="gender">Gender</label>
-        <input style="width: 250px" type="text" id="gender" name="gender">
+        <input style="width: 250px" type="text" id="gender" name="gender" required>
         <br><br>
     
         <label style="width: 250px" for="state">State:</label>
-        <input style="width: 250px" type="text" id="state" name="state">
+        <input style="width: 250px" type="text" id="state" name="state" required>
         <br><br>
     
         <label style="width: 250px" for="credentials">Credentials:</label>
-        <input style="width: 250px" type="text" id="credentials" name="credentials">
+        <input style="width: 250px" type="text" id="credentials" name="credentials" required>
         <br><br>
     
         <label style="width: 250px" for="specialty">Specialty:</label>
-        <input style="width: 250px" type="text" id="specialty" name="specialty">
+        <input style="width: 250px" type="text" id="specialty" name="specialty" required>
         <br><br>
 
         <label style="width: 250px" for="totalprescriptions">Total Prescription:</label>
-        <input style="width: 250px" type="text" id="totalprescriptions" name="totalprescriptions">
+        <input style="width: 250px" type="text" id="totalprescriptions" name="totalprescriptions" required>
         <br><br>
 
         <label style="width: 250px" for="sOpioid">Opioid Prescriber</label><br>
@@ -130,7 +130,7 @@
             border: 2px solid var(--main-text);
             border-radius: 50%;
             position: relative;
-            outline: none;" type="radio" id="sOpioid" name="sOpioid" value="yes">
+            outline: none;" type="radio" id="sOpioid" name="sOpioid" value="yes" required>
             <label for="opioid_yes">Yes</label><br>
             <input style="appearance: none;
             cursor: pointer;
@@ -139,7 +139,7 @@
             border: 2px solid var(--main-text);
             border-radius: 50%;
             position: relative;
-            outline: none;" type="radio" id="sOpioid" name="sOpioid" value="no">
+            outline: none;" type="radio" id="sOpioid" name="sOpioid" value="no" required>
             <label for="sOpioid">No</label><br><br>
     
         <button class="button" style="width: 75px" type="submit">Add</button>
