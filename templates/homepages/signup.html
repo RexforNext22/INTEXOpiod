@@ -1,0 +1,134 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+<style>
+    :root {
+      /* Regent Gray */
+      --main-text: #869ba7;
+    
+      /* Limed Spruce */
+      --main-heading: #304145;
+    
+      /* Cutty Sark */
+      --light-main-heading: #5a7277;
+    
+      /* White */
+      --background: white;
+    
+      /* Nobel */
+      --selected-background: #b6afb0;
+  
+      /* Heather */
+      --form-background: #B5C5CD;
+    }
+  
+    .button {
+      background-color: var(--main-heading);
+      border-radius: 2px;
+      color: var(--selected-background);
+      display: inline-block;
+      font-family: "Roboto", sans-serif;
+      font-size: 12px;
+      padding: 8px 10px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      grid-column: 1 / span 2;
+      justify-self: center;
+      }
+  
+  .buttonMargin {
+      margin: 0 0 1em;
+      }
+  
+  .button:hover {
+      background-color: var(--light-main-heading);
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+      text-decoration: none;
+      cursor: pointer;
+      }
+  
+  .button:active,
+  .button:focus {
+      background-color: var(--selected-background);
+      box-shadow: 0 0 0 2px var(--main-color-dark) inset;
+      color: var(--background);
+      cursor: pointer;
+      }
+  
+      input[type="radio"]::after {
+        content: "";
+        display: block;
+        height: 7px;
+        width: 7px;
+        background-color: var(--main-heading);
+        position: absolute;
+        top: 1.5px;
+        left: 2px;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: transform 300ms ease;
+      }
+  
+      input[type="radio"]:hover,
+  input[type="radio"]:focus {
+    border-color: var(--main-text);
+    box-shadow: 0px 0px 4px var(--main-text);
+  }
+  
+  input[type="radio"]:checked:after {
+    transform: scale(1);
+  }
+  
+  input[type="text"]{
+    background-color: #D8F2FF;
+  }
+
+  input[type="date"]{
+    background-color: #D8F2FF;
+  }
+  
+  th, td {
+    border: 1px solid black;
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+  </style>
+<div style="background-color: #ECF5FF;">
+    <div class="container" style="align: center;">
+        <br><br><br>
+        <h1 style="padding-top: 20px">Sign Up</h1>
+        <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;">
+
+            <label style="width: 250px" for="first_name">First Name:</label>
+            <input style="width: 250px" type="text" id="first_name" name="first_name" required>
+            <br><br>
+
+            <label style="width: 250px" for="last_name">Last Name:</label>
+            <input style="width: 250px" type="text" id="last_name" name="last_name" required>
+            <br><br>
+
+            <label style="width: 250px" for="birthdate">Birth Date</label>
+            <input style="width: 250px" type="date" id="birthdate" name="birthdate" required>
+            <br><br>
+
+            <label style="width: 250px" for="username">Username:</label>
+            <input style="width: 250px" type="text" id="username" name="username" required>
+            <br><br>
+
+            <label style="width: 250px" for="password">Password:</label>
+            <input style="width: 250px" type="text" id="password" name="password" required>
+            <br><br>
+
+            <button class="button" type="submit">Sign Up</button>
+        </form>
+        <br><br><br><br><br><br><br><br><br>
+    </div>
+</div>
+{% endblock %}
+
+

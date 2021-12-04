@@ -3,8 +3,9 @@ from django.urls import path
 from .views import indexPageView
 from .views import drugLibraryPageView, prescribersPageView, loginPageView, index2PageView, learnMore2PageView 
 from .views import drugDetailsPageView, deletePageView, additionPrescriberPageView, predictionPageView, makePredictionPageView
-from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView, learnMorePageView 
-from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView, showRecommenderPageView, makeRecommenderPageView
+from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView, learnMorePageView, signUpPageView 
+from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView, showRecommenderPageView 
+from .views import makeRecommenderPageView
 
 
 # Create the different path for index and about 
@@ -29,6 +30,7 @@ urlpatterns = [
     path("login/", loginPageView, name="login"), # route to view the login
     path("loginredirect/", indexPageView, name="index"), # route to view new landingpage
     path("learnmore2/", learnMore2PageView, name="learnmore2"), # route to view the learn more2
+    path("signup", signUpPageView, name="signup"), # route to view the learn more2
  
 ]
 

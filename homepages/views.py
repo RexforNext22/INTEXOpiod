@@ -554,3 +554,8 @@ def learnMore2PageView(request) :
         "oState2" : oState2
     } 
     return render(request, 'homepages/learnmore2.html', context)
+
+# View function to display the sign up screen
+def signUpPageView(request) : 
+    return render(request, 'homepages/signup.html')
+
