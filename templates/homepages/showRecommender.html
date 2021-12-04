@@ -25,6 +25,8 @@
     .button {
       background-color: var(--main-heading);
       border-radius: 2px;
+      display: flex;
+      justify-content: center;
       color: var(--selected-background);
       display: inline-block;
       font-family: "Roboto", sans-serif;
@@ -56,15 +58,16 @@
     
     .button--loading::after {
       content: "";
-      position: absolute;
+      display: flex;
+      justify-content: center;
       width: 16px;
       height: 16px;
-      top: 30px;
-      left: 0;
-      right: 320px;
-      bottom: 0;
       margin: auto;
+      padding: 0 0 0 0;
       border: 4px solid transparent;
+      background-color: transparent;
+      border-radius: 2px;
+      color: transparent;
       border-top-color: #ffffff;
       border-radius: 50%;
       animation: button-loading-spinner 1s ease infinite;
