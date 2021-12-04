@@ -1,24 +1,107 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<br /><br /><br />
-<div class="container">
-  <h1>Drug: {{drug.drugname}}</h1>
+<style>
+  :root {
+    /* Regent Gray */
+    --main-text: #869ba7;
+  
+    /* Limed Spruce */
+    --main-heading: #304145;
+  
+    /* Cutty Sark */
+    --light-main-heading: #5a7277;
+  
+    /* White */
+    --background: white;
+  
+    /* Nobel */
+    --selected-background: #b6afb0;
 
-  <p
-    style="
-      margin: auto;
-      width: 50%;
-      border: 2px solid CornflowerBlue;
-      padding: 10px;
-    "
-  >
+    /* Heather */
+    --form-background: #B5C5CD;
+  }
+
+  .button {
+    background-color: var(--main-heading);
+    border-radius: 2px;
+    color: var(--selected-background);
+    display: inline-block;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    padding: 8px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    grid-column: 1 / span 2;
+    justify-self: center;
+    }
+
+.buttonMargin {
+    margin: 0 0 1em;
+    }
+
+.button:hover {
+    background-color: var(--light-main-heading);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+.button:active,
+.button:focus {
+    background-color: var(--selected-background);
+    box-shadow: 0 0 0 2px var(--main-color-dark) inset;
+    color: var(--background);
+    cursor: pointer;
+    }
+
+    input[type="radio"]::after {
+      content: "";
+      display: block;
+      height: 7px;
+      width: 7px;
+      background-color: var(--main-heading);
+      position: absolute;
+      top: 1.5px;
+      left: 2px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 300ms ease;
+    }
+
+    input[type="radio"]:hover,
+input[type="radio"]:focus {
+  border-color: var(--main-text);
+  box-shadow: 0px 0px 4px var(--main-text);
+}
+
+input[type="radio"]:checked:after {
+  transform: scale(1);
+}
+
+input[type="text"]{
+  background-color: #D8F2FF;
+}
+</style>
+<br /><br /><br />
+<div style="background-color: #ECF5FF;">
+  <div class="container" style="align: center;">
+  <h1 style="padding-top: 20px">Drug: {{drug.drugname}}</h1>
+  <div style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;">
+  <p>
+    <h3 style="text-align: center;">
     {{opioid}}<!--The names of the column names have to match perfectly-->
+    </h3>
     <br><br>
-   <span>Prescribers:</span><br>
+   <h3>Prescribers:</h3><br>
     {% for dat in topprescriber %}
 
     {{ dat.fname }} {{dat.lname}}<br><!--The names of the column names have to match perfectly-->
     
   {% endfor %}
   </p>
+</div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
 </div>
 {% endblock %}

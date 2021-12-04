@@ -1,55 +1,155 @@
 <!--This is the html form to add a prescriber to the database-->
 {% extends 'base.html' %} {% load static %} {% block content %}
-<br /><br /><br /><br><br>
-<div class="container" style="margin: auto; align: center" ><br><br>
-    <h4>Update Prescriber</h4>
-    <form name='form' method='POST' style="margin: auto; text-align: center" action="{% url 'updatePrescriber' %}">{% csrf_token %}
+<style>
+    :root {
+      /* Regent Gray */
+      --main-text: #869ba7;
+    
+      /* Limed Spruce */
+      --main-heading: #304145;
+    
+      /* Cutty Sark */
+      --light-main-heading: #5a7277;
+    
+      /* White */
+      --background: white;
+    
+      /* Nobel */
+      --selected-background: #b6afb0;
+  
+      /* Heather */
+      --form-background: #B5C5CD;
+    }
+  
+    .button {
+      background-color: var(--main-heading);
+      border-radius: 2px;
+      color: var(--selected-background);
+      display: inline-block;
+      font-family: "Roboto", sans-serif;
+      font-size: 12px;
+      padding: 8px 10px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      grid-column: 1 / span 2;
+      justify-self: center;
+      }
+  
+  .buttonMargin {
+      margin: 0 0 1em;
+      }
+  
+  .button:hover {
+      background-color: var(--light-main-heading);
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+      text-decoration: none;
+      cursor: pointer;
+      }
+  
+  .button:active,
+  .button:focus {
+      background-color: var(--selected-background);
+      box-shadow: 0 0 0 2px var(--main-color-dark) inset;
+      color: var(--background);
+      cursor: pointer;
+      }
+  
+      input[type="radio"]::after {
+        content: "";
+        display: block;
+        height: 7px;
+        width: 7px;
+        background-color: var(--main-heading);
+        position: absolute;
+        top: 1.5px;
+        left: 2px;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: transform 300ms ease;
+      }
+  
+      input[type="radio"]:hover,
+  input[type="radio"]:focus {
+    border-color: var(--main-text);
+    box-shadow: 0px 0px 4px var(--main-text);
+  }
+  
+  input[type="radio"]:checked:after {
+    transform: scale(1);
+  }
+  
+  input[type="text"]{
+    background-color: #D8F2FF;
+  }
+  </style>
+<br /><br /><br>
+<div style="background-color: #ECF5FF;">
+    <div class="container" style="align: center;">
+      <h1 style="padding-top: 20px">Update Prescriber</h1>
+    <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'updatePrescriber' %}">{% csrf_token %}
 
-        <label for="NPI">NPI:</label>
-        <input type="text" id="NPI" name="NPI" value={{ prescriber.npi }} autofocus>
+        <label style="width: 250px" for="NPI">NPI:</label>
+        <input style="width: 250px" type="text" id="NPI" name="NPI" value={{ prescriber.npi }} autofocus>
         <br><br>
     
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" value={{ prescriber.fname }}>
+        <label style="width: 250px" for="first_name">First Name:</label>
+        <input style="width: 250px" type="text" id="first_name" name="first_name" value={{ prescriber.fname }}>
         <br><br>
     
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" value={{ prescriber.lname }}>
+        <label style="width: 250px" for="last_name">Last Name:</label>
+        <input style="width: 250px" type="text" id="last_name" name="last_name" value={{ prescriber.lname }}>
         <br><br>
     
-        <label for="gender">Gender</label>
-        <input type="text" id="gender" name="gender" value={{ prescriber.gender }}>
+        <label style="width: 250px" for="gender">Gender</label>
+        <input style="width: 250px" type="text" id="gender" name="gender" value={{ prescriber.gender }}>
         <br><br>
     
-        <label for="state">State:</label>
-        <input type="text" id="state" name="state" value={{ prescriber.state_id }}>
+        <label style="width: 250px" for="state">State:</label>
+        <input style="width: 250px" type="text" id="state" name="state" value={{ prescriber.state_id }}>
         <br><br>
     
-        <label for="credentials">Credentials:</label>
-        <input type="text" id="credentials" name="credentials" value={{ prescriber.credentials }}>
+        <label style="width: 250px" for="credentials">Credentials:</label>
+        <input style="width: 250px" type="text" id="credentials" name="credentials" value={{ prescriber.credentials }}>
         <br><br>
     
-        <label for="specialty">Specialty:</label>
-        <input type="text" id="specialty" name="specialty" value={{ prescriber.specialty }}>
+        <label style="width: 250px" for="specialty">Specialty:</label>
+        <input style="width: 250px" type="text" id="specialty" name="specialty" value={{ prescriber.specialty }}>
         <br><br>
 
-        <label for="totalprescriptions">Total Prescription:</label>
-        <input type="text" id="totalprescriptions" name="totalprescriptions" value={{ prescriber.totalprescriptions }}>
+        <label style="width: 250px" for="totalprescriptions">Total Prescription:</label>
+        <input style="width: 250px" type="text" id="totalprescriptions" name="totalprescriptions" value={{ prescriber.totalprescriptions }}>
         <br><br>
 
-        <label for="opioid">Opioid Prescriber</label><br>
-            <input type="radio" id="opioid" name="opioid"
+        <label style="width: 250px" for="opioid">Opioid Prescriber</label><br>
+            <input style="appearance: none;
+            cursor: pointer;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--main-text);
+            border-radius: 50%;
+            position: relative;
+            outline: none;" type="radio" id="opioid" name="opioid"
             {% if prescriber.isopioidprescriber == 'TRUE' %}
             checked
             {% endif %} value="yes">
             <label for="opioid">Yes</label><br>
-            <input type="radio" id="opioid" name="opioid" {% if prescriber.isopioidprescriber == 'FALSE' %}
+            <input style="appearance: none;
+            cursor: pointer;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--main-text);
+            border-radius: 50%;
+            position: relative;
+            outline: none;" type="radio" id="opioid" name="opioid" {% if prescriber.isopioidprescriber == 'FALSE' %}
             checked
             {% endif %} value="no">
             <label for="opioid">No</label><br><br>
     
-        <button class="btn btn-primary" type="submit">Update</button>
+        <button class="button" type="submit">Update</button>
     </form>
-
+    </div>
+    <br><br><br><br>
 </div>
 {% endblock %}

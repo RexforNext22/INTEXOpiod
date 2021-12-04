@@ -2,69 +2,158 @@
 The page inherits form the base.html
 -->
 {% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+  :root {
+    /* Regent Gray */
+    --main-text: #869ba7;
+  
+    /* Limed Spruce */
+    --main-heading: #304145;
+  
+    /* Cutty Sark */
+    --light-main-heading: #5a7277;
+  
+    /* White */
+    --background: white;
+  
+    /* Nobel */
+    --selected-background: #b6afb0;
+
+    /* Heather */
+    --form-background: #B5C5CD;
+  }
+
+  .button {
+    background-color: var(--main-heading);
+    border-radius: 2px;
+    color: var(--selected-background);
+    display: inline-block;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    padding: 8px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    grid-column: 1 / span 2;
+    justify-self: center;
+    }
+
+.buttonMargin {
+    margin: 0 0 1em;
+    }
+
+.button:hover {
+    background-color: var(--light-main-heading);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+.button:active,
+.button:focus {
+    background-color: var(--selected-background);
+    box-shadow: 0 0 0 2px var(--main-color-dark) inset;
+    color: var(--background);
+    cursor: pointer;
+    }
+
+    input[type="radio"]::after {
+      content: "";
+      display: block;
+      height: 7px;
+      width: 7px;
+      background-color: var(--main-heading);
+      position: absolute;
+      top: 1.5px;
+      left: 2px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 300ms ease;
+    }
+
+    input[type="radio"]:hover,
+input[type="radio"]:focus {
+  border-color: var(--main-text);
+  box-shadow: 0px 0px 4px var(--main-text);
+}
+
+input[type="radio"]:checked:after {
+  transform: scale(1);
+}
+
+input[type="text"]{
+  background-color: #D8F2FF;
+}
+</style>
 <br /><br /><br /> 
+<div style="background-color: #ECF5FF;">
+  <div class="container" style="align: center;">
+    <h1 style="padding-top: 20px">U.S. Prescribers</h1>
+    <br /><br />
 
-<!--DIV CONTAINER-->
-<div class="container">
+    <!--Form to filter information-->
+  <form method="get" action="{% url 'filterprescriber' %}" style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;">{% csrf_token %}
+      <label style="width: 250px" for="first_name">First Name</label>
+      <input style="width: 250px" type="text" name="first_name" id="first_name"><br><br>
 
-    <!--The Title -->
-  <h1>U.S. Prescribers</h1>
+      <label style="width: 250px" for="last_name">Last Name</label>
+      <input style="width: 250px" type="text" name="last_name" id="last_name"><br><br>
 
-  <!--Form to filter information-->
-<form method="get" action="{% url 'filterprescriber' %}" style="border: 1px solid; width: 50%; margin: auto;">{% csrf_token %}
-    <label for="first_name">First Name</label>
-    <input type="text" name="first_name" id="first_name"><br><br>
+      <label style="width: 250px" for="gender">Gender</label>
+      <input style="width: 250px" type="text" name="gender" id="gender"><br><br>
 
-    <label for="last_name">Last Name</label>
-    <input type="text" name="last_name" id="last_name"><br><br>
+      <label style="width: 250px" for="credentials">Credentials</label>
+      <input style="width: 250px" type="text" name="credentials" id="credentials"><br><br>
 
-    <label for="gender">Gender</label>
-    <input type="text" name="gender" id="gender"><br><br>
+      <label style="width: 250px" for="location">Location (State Abbreviation)</label>
+      <input style="width: 250px" type="text" name="location" id="location"><br><br>
 
-    <label for="credentials">Credentials</label>
-    <input type="text" name="credentials" id="credentials"><br><br>
+      <label style="width: 250px" for="specialty">Specialty</label>
+      <select style="width: 250px; background-color: #D8F2FF;" name="specialty" id="specialty">
+          <option value="">None</option>
+          
+          {% for specialty in specialty%}
+          <option value="{{ specialty }}">{{ specialty }}</option>
+          {% endfor %}
 
-    <label for="location">Location (State Abbreviation)</label>
-    <input type="text" name="location" id="location"><br><br>
+      </select><br><br>
+      <div style="display: flex; justify-content: space-evenly;">
+        <button style="width: 150px;"
+        class="button"
+        onclick="window.location.href"{% url 'addPrescriber' %}"">
+          Add Prescriber
+        </button>
+        <button style="width: 90px;" class="button" type="submit">Search</button> <!--Button to submit the search criteria-->
+        <button style="width: 90px;" class="button" type="submit">Show All</button> <!--Button to redisplay all the records-->
+      </div>  
+  </form><br><br>
 
-    <label for="specialty">Specialty</label>
-    <select name="specialty" id="specialty">
-        <option value="">None</option>
-        
-        {% for specialty in specialty%}
-         <option value="{{ specialty }}">{{ specialty }}</option>
-        {% endfor %}
-
-    </select><br><br>
-
-    <a
-    class="btn btn-primary"
-    href="{% url 'addPrescriber' %}"
-    >Add Prescriber</a
-  >
-    <button class="btn btn-primary" type="submit">Search</button> <!--Button to submit the search criteria-->
-    <button class="btn btn-primary" type="submit">Show All</button> <!--Button to redisplay all the records-->
-</form><br><br>
-
-    <!--Display all the prescriber information through Django-->
-  {% for prescriber in prescriber %}
-  <p
-    style="
-      margin: fixed;
-      width: 100%;
-      border: 2px solid CornflowerBlue;
-      padding: 10px;
-    "
-  >
-    {{ prescriber.fname }} {{ prescriber.lname }} <!--The names of the column names have to match perfectly-->
-
-    <!--The button to view the individual prescribers-->
-    <a
-      class="btn btn-primary" style=""
-      href="{% url 'viewPrescriber' prescriber_id=prescriber.npi %}"
-      >View</a
-    ><br>
-  </p>
-  {% endfor %}
-</div>
+      <!--Display all the prescriber information through Django-->
+    {% for prescriber in prescriber %}
+    <div style="display: flex; justify-content: center;">
+      <table style="display: flex; flex: 0 0 25em; width: 330px; padding-top: 15px; border: 1px solid black;">
+        <td>
+          <p
+          style="
+          width: 300px;
+          {% comment %} border: 2px solid CornflowerBlue; {% endcomment %}
+          padding: 10px;"
+          >
+            {{ prescriber.fname }} {{ prescriber.lname }} <!--The names of the column names have to match perfectly-->
+        </td>
+        <td>
+          <!--The button to view the individual prescribers-->
+          <a
+            class="button" style="width: 75px;"
+            href="{% url 'viewPrescriber' prescriber_id=prescriber.npi %}"
+            >View</a
+          ><br>
+          </p>
+        </td>
+      </table>
+    </div>
+    {% endfor %}
+    </div>
+  </div>
 {% endblock %}
