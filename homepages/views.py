@@ -559,3 +559,8 @@ def learnMore2PageView(request) :
 def signUpPageView(request) : 
     return render(request, 'homepages/signup.html')
 
+
+# View function for successful sign up
+def signUpYesPageView(request) : 
+    return render(request, 'homepages/indexsignalert.html')
+

@@ -85,6 +85,11 @@
     background-color: #D8F2FF;
   }
 
+  input[type="password"]{
+    background-color: #D8F2FF;
+  }
+  
+
   input[type="date"]{
     background-color: #D8F2FF;
   }
@@ -102,8 +107,9 @@
     <div class="container" style="align: center;">
         <br><br><br>
         <h1 style="padding-top: 20px">Sign Up</h1>
-        <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;">
-
+        <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;"
+        action="{% url 'signUpYes' %}">
+            {% csrf_token %}
             <label style="width: 250px" for="first_name">First Name:</label>
             <input style="width: 250px" type="text" id="first_name" name="first_name" required>
             <br><br>
@@ -121,7 +127,7 @@
             <br><br>
 
             <label style="width: 250px" for="password">Password:</label>
-            <input style="width: 250px" type="text" id="password" name="password" required>
+            <input style="width: 250px" type="password" id="password" name="password" required>
             <br><br>
 
             <button class="button" type="submit">Sign Up</button>

@@ -5,7 +5,7 @@ from .views import drugLibraryPageView, prescribersPageView, loginPageView, inde
 from .views import drugDetailsPageView, deletePageView, additionPrescriberPageView, predictionPageView, makePredictionPageView
 from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView, learnMorePageView, signUpPageView 
 from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView, showRecommenderPageView 
-from .views import makeRecommenderPageView
+from .views import makeRecommenderPageView, signUpYesPageView
 
 
 # Create the different path for index and about 
@@ -31,6 +31,7 @@ urlpatterns = [
     path("loginredirect/", indexPageView, name="index"), # route to view new landingpage
     path("learnmore2/", learnMore2PageView, name="learnmore2"), # route to view the learn more2
     path("signup", signUpPageView, name="signup"), # route to view the learn more2
+    path("signUpYes", signUpYesPageView, name="signUpYes"), # route to view the learn more2
  
 ]
 
