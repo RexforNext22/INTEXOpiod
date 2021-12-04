@@ -120,7 +120,7 @@
          If you are worried a prescriber might write you a presciption for an opioid when you don't need it,
          the recommender tool can help.</p><br> {% endcomment %}
         <br><br><br><br>
-      <form name='form' method='POST'style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'loginredirect' %}">{% csrf_token %}
+      <form name='form' method='POST'style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'index' %}">{% csrf_token %}
         <label style="width: 250px" for="username">Username:</label><br>
         <input style="width: 250px" type="text" id="username" name="username" autofocus required>
         <label style="width: 250px" for="password">Password:</label><br>

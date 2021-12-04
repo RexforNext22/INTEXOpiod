@@ -56,5 +56,5 @@ class Triple(models.Model):
         db_table = "pd_triple"
 
     def __str__(self):
-        return str(self.drugname) # the discription will be seen on the admin page
+        return str(self.drug) # the discription will be seen on the admin page
 

@@ -9,7 +9,7 @@ from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberP
 
 # Create the different path for index and about 
 urlpatterns = [
-    path("", index2PageView, name="index"),    
+    path("", index2PageView, name="index2"),    
     path("druglibrary/", drugLibraryPageView, name="druglibrary"), # route for the drug library
     path("prescribers/", prescribersPageView, name="prescribers"), # route for the prescriber library
     path("showdrugs/<int:drug_id>", drugDetailsPageView, name='showDrugs'), # route for the drug details
@@ -27,7 +27,7 @@ urlpatterns = [
     path("makeRecommendation/", makeRecommenderPageView, name="makeRecommendation"), # route to view the recommender model  
     path("learnmore/", learnMorePageView, name="learnmore"), # route to view the learn more
     path("login/", loginPageView, name="login"), # route to view the login
-    path("loginredirect/", indexPageView, name="loginredirect"), # route to view new landingpage
+    path("loginredirect/", indexPageView, name="index"), # route to view new landingpage
     path("learnmore2/", learnMore2PageView, name="learnmore2"), # route to view the learn more2
  
 ]
