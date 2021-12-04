@@ -1,7 +1,7 @@
 # Import the django.url and views function
 from django.urls import path
 from .views import indexPageView
-from .views import drugLibraryPageView, prescribersPageView 
+from .views import drugLibraryPageView, prescribersPageView, loginPageView, index2PageView, learnMore2PageView 
 from .views import drugDetailsPageView, deletePageView, additionPrescriberPageView, predictionPageView, makePredictionPageView
 from .views import viewPrescriberPageView, filterPrescriberPageView, addPrescriberPageView, learnMorePageView 
 from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberPageView, showRecommenderPageView, makeRecommenderPageView
@@ -9,7 +9,7 @@ from .views import filterDrugPageView, editPrescriberPageView, updatePrescriberP
 
 # Create the different path for index and about 
 urlpatterns = [
-    path("", indexPageView, name="index"),    
+    path("", index2PageView, name="index"),    
     path("druglibrary/", drugLibraryPageView, name="druglibrary"), # route for the drug library
     path("prescribers/", prescribersPageView, name="prescribers"), # route for the prescriber library
     path("showdrugs/<int:drug_id>", drugDetailsPageView, name='showDrugs'), # route for the drug details
@@ -25,7 +25,10 @@ urlpatterns = [
     path("makePrediction/", makePredictionPageView, name="makePrediction"), # route to run the prediction model 
     path("showRecommender/", showRecommenderPageView, name="showRecommender"), # route to show the recommender model 
     path("makeRecommendation/", makeRecommenderPageView, name="makeRecommendation"), # route to view the recommender model  
-    path("learnmore/", learnMorePageView, name="learnmore"), # route to view the recommender model  
+    path("learnmore/", learnMorePageView, name="learnmore"), # route to view the learn more
+    path("login/", loginPageView, name="login"), # route to view the login
+    path("loginredirect/", indexPageView, name="loginredirect"), # route to view new landingpage
+    path("learnmore2/", learnMore2PageView, name="learnmore2"), # route to view the learn more2
  
 ]
 
