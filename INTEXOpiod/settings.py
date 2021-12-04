@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'INTEXOpiod.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'drugs', #Name of the database
+        'NAME': 'drugs_primary', #Name of the database
         'USER': 'postgres',
         'PASSWORD' : 'curitibasouth17', 
         'HOST' : 'localhost'
