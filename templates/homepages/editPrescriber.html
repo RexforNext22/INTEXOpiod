@@ -91,35 +91,35 @@
     <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'updatePrescriber' %}">{% csrf_token %}
 
         <label style="width: 250px" for="NPI">NPI:</label>
-        <input style="width: 250px" type="text" id="NPI" name="NPI" value={{ prescriber.npi }} autofocus>
+        <input style="width: 250px" type="text" id="NPI" name="NPI" value={{ prescriber.npi }} autofocus required>
         <br><br>
     
         <label style="width: 250px" for="first_name">First Name:</label>
-        <input style="width: 250px" type="text" id="first_name" name="first_name" value={{ prescriber.fname }}>
+        <input style="width: 250px" type="text" id="first_name" name="first_name" value={{ prescriber.fname }} required>
         <br><br>
     
         <label style="width: 250px" for="last_name">Last Name:</label>
-        <input style="width: 250px" type="text" id="last_name" name="last_name" value={{ prescriber.lname }}>
+        <input style="width: 250px" type="text" id="last_name" name="last_name" value={{ prescriber.lname }} required>
         <br><br>
     
         <label style="width: 250px" for="gender">Gender</label>
-        <input style="width: 250px" type="text" id="gender" name="gender" value={{ prescriber.gender }}>
+        <input style="width: 250px" type="text" id="gender" name="gender" value={{ prescriber.gender }} required>
         <br><br>
     
         <label style="width: 250px" for="state">State:</label>
-        <input style="width: 250px" type="text" id="state" name="state" value={{ prescriber.state_id }}>
+        <input style="width: 250px" type="text" id="state" name="state" value={{ prescriber.state_id }} required>
         <br><br>
     
         <label style="width: 250px" for="credentials">Credentials:</label>
-        <input style="width: 250px" type="text" id="credentials" name="credentials" value={{ prescriber.credentials }}>
+        <input style="width: 250px" type="text" id="credentials" name="credentials" value={{ prescriber.credentials }} required>
         <br><br>
     
         <label style="width: 250px" for="specialty">Specialty:</label>
-        <input style="width: 250px" type="text" id="specialty" name="specialty" value={{ prescriber.specialty }}>
+        <input style="width: 250px" type="text" id="specialty" name="specialty" value={{ prescriber.specialty }} required>
         <br><br>
 
         <label style="width: 250px" for="totalprescriptions">Total Prescription:</label>
-        <input style="width: 250px" type="text" id="totalprescriptions" name="totalprescriptions" value={{ prescriber.totalprescriptions }}>
+        <input style="width: 250px" type="text" id="totalprescriptions" name="totalprescriptions" value={{ prescriber.totalprescriptions }} required>
         <br><br>
 
         <label style="width: 250px" for="opioid">Opioid Prescriber</label><br>
@@ -133,7 +133,7 @@
             outline: none;" type="radio" id="opioid" name="opioid"
             {% if prescriber.isopioidprescriber == 'TRUE' %}
             checked
-            {% endif %} value="yes">
+            {% endif %} value="yes" required>
             <label for="opioid">Yes</label><br>
             <input style="appearance: none;
             cursor: pointer;
@@ -144,7 +144,7 @@
             position: relative;
             outline: none;" type="radio" id="opioid" name="opioid" {% if prescriber.isopioidprescriber == 'FALSE' %}
             checked
-            {% endif %} value="no">
+            {% endif %} value="no" required>
             <label for="opioid">No</label><br><br>
     
         <button class="button" type="submit">Update</button>
