@@ -85,14 +85,87 @@
       background-color: #D8F2FF;
     }
     </style>
-    <br><br><br>
     <div style="background-color: #ECF5FF;">
-      <div class="container" style="align: center;">
+        <br><br>
+      <div class="container" style="align: center;"><br>
         <h1 style="padding-top: 20px">Learn More</h1>
       </div>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <div style="display: flex;
+      justify-content: center;">
+      <p>The Opioid Epidemic is becoming an increasingly large problem in U.S. and around the world. 
+          More deaths are related to opioid overdose than firearms and car accidents.</p>
+      </div>
+      <br><br>
+      <iframe style="display: flex;
+      justify-content: center; margin: auto; border: 9px outset #ddd; padding: 6px;" width="560" height="315" src="https://www.youtube.com/embed/oHlaz0kQlRE" title="YouTube video player" 
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen></iframe><br><br><br><br><br>
+
+    <!-- ======= Counts Section ======= -->
+    <h2 style="display: flex;
+    justify-content: center; margin: auto;">Did you know?</h2><br>
+    <section id="counts" class="counts">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-3 col-6, center">
+            <div class="count-box">
+              {% comment %} <i class="bi bi-emoji-smile"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="{{ iNumberPrescribedOpioids }}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Number of Opioid Prescriptions</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="count-box">
+              {% comment %} <i class="bi bi-journal-richtext"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="{{ iNumHydrocodoneAcetaminophen }}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Most Prescribed Opioid: Hydrocodone Acetaminophen</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              {% comment %} <i class="bi bi-headset"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="{{oState.deaths}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Most Deaths: {{oState.state}}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              {% comment %} <i class="bi bi-people"></i> {% endcomment %}
+              <span data-purecounter-start="0" data-purecounter-end="{{oState2.deaths}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Least Deaths: {{oState2.state}}</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Counts Section --><br><br>
+
+    <span class="member" style="display: flex;
+    justify-content: center; ">
+    <img style="border: 9px outset #ddd; padding: 6px;"src="{% static 'assets/img/deaths.png'%}" width="660" height="700" alt="">
+    </span>
+    {% comment %} <div class="col-lg-3 col-6 mt-5 mt-lg-0" style="display: flex;
+    justify-content: center; margin: auto;">
+        <div class="count-box">
+           <i class="bi bi-people"></i>
+            <span data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1" class="purecounter"></span>
+          <h3>Only Opioid Prescribers</h3>
+          {% for currentopioidpres in currentopioidpres %}
+
+          {{ currentopioidpres.fname }} {{ currentopioidpres.lname }}<br><!--The names of the column names have to match perfectly-->
+          
+        {% endfor %}
+        </div>
+      </div> {% endcomment %}
+
+
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 
   {% endblock %}

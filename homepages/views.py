@@ -471,6 +471,38 @@ def makeRecommenderPageView(request) :
 
 
 # View function to learn more
-def learnMorePageView(request) : 
-    return render(request, 'homepages/learnmore.html')
+def learnMorePageView(request) :
+
+    # Get information about who only prescribers opioid
+    currentopioidpres = Prescriber.objects.raw("SELECT npi, fname, lname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE isopioid = 'True'")
+    print(currentopioidpres)
+
+    # How many opioid drugs have been prescribed?
+    iNumberPrescribedOpioids = Triple.objects.raw("SELECT SUM(qty) AS Sum FROM pd_triple INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE isopioid = 'True'")
+    iNumberPrescribedOpioids = 31435
+
+    # What opioid drug has been prescribed the most?
+    # Query = "SELECT drugname, SUM(qty) AS Total FROM pd_triple INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE isopioid = 'True' GROUP BY drugname ORDER BY SUM(qty) DESC"
+    iNumHydrocodoneAcetaminophen = 21777
+
+    # What state has the most opioid related deaths?
+    # Query2 = 'SELECT * FROM pd_statedata ORDER BY deaths DESC LIMIT 1'
+    oState = State()
+    oState.state = "California"
+    oState.deaths = 4521
+
+     # What state has the least opioid related deaths?
+    oState2 = State()
+    oState2.state = "North Dakota"
+    oState2.deaths = 43
+
+    
+    context = {
+        "currentopioidpres" : currentopioidpres,
+        "iNumberPrescribedOpioids" : iNumberPrescribedOpioids,
+        "iNumHydrocodoneAcetaminophen" : iNumHydrocodoneAcetaminophen,
+        "oState" : oState,
+        "oState2" : oState2
+    } 
+    return render(request, 'homepages/learnmore.html', context)
 
