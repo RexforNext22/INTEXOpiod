@@ -92,7 +92,7 @@ input[type="text"]{
     <!--Form to filter drugs-->
         <form method="get" action="{% url 'filterdrug' %}" style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px">{% csrf_token %}
             <label for="drug_search">Name</label>
-            <input type="text" name="drug_search" id="drug_search" autofocus required><br><br>
+            <input type="text" name="drug_search" id="drug_search" autofocus><br><br>
 
             <label for="Opioid">Opioid</label><br>
             <input style="appearance: none;
@@ -102,7 +102,7 @@ input[type="text"]{
             border: 2px solid var(--main-text);
             border-radius: 50%;
             position: relative;
-            outline: none;" type="radio" id="opioid" name="opioid" value="yes" required>
+            outline: none;" type="radio" id="opioid" name="opioid" value="yes">
             <label for="opioid">Yes</label><br>
             <input style="appearance: none;
             cursor: pointer;
@@ -111,7 +111,7 @@ input[type="text"]{
             border: 2px solid var(--main-text);
             border-radius: 50%;
             position: relative;
-            outline: none;" type="radio" id="opioid" name="opioid" value="no" required>
+            outline: none;" type="radio" id="opioid" name="opioid" value="no">
             <label for="opioid">No</label><br><br>
 
             <button class="button" type="submit">Search</button>
