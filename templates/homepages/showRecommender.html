@@ -122,7 +122,7 @@
         <br><br><br><br>
       <form name='form' method='POST'style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'makeRecommendation' %}">{% csrf_token %}
         <label style="width: 250px" for="drug_name">Drug Name:</label><br>
-        <input style="width: 250px" type="text" id="drug_name" name="drug_name">
+        <input style="width: 250px" type="text" id="drug_name" name="drug_name" autofocus required>
         <br><br>
         <button class="button" onclick="this.classList.toggle('button--loading')" type="submit">
           <span class="button__text">Make Recommendation</span>
