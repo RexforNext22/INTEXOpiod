@@ -58,3 +58,21 @@ class Triple(models.Model):
     def __str__(self):
         return str(self.drug) # the discription will be seen on the admin page
 
+
+#Model for Credential
+class Credential(models.Model):
+    credential_id = models.IntegerField(blank=False, primary_key=True, unique=True)
+    description = models.CharField(max_length=10, blank=False, unique=True)
+    class Meta:
+        db_table = "pd_credential"
+    def __str__(self):
+        return str(self.description)
+#Association Class for credentials and prescriber
+class CredPres(models.Model) :
+    npi = models.ForeignKey(Prescriber, on_delete=models.DO_NOTHING, blank=False)
+    credential = models.ForeignKey(Credential, on_delete=models.DO_NOTHING, blank=False)
+    class Meta:
+        db_table = "pd_cred_pres"
+    def __str__(self):
+        return str(self.npi)
+
