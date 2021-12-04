@@ -90,8 +90,13 @@ input[type="text"]{
   <br /><br /><br /> 
   <div class="container" style="align: center;">
     <h1 style="padding-top: 20px">U.S. Prescribers</h1>
-    <br /><br />
-
+    <div style="display: flex; justify-content: right;">
+      <a style="width: 150px;"
+      class="button"
+      href="{% url 'addPrescriber' %}">
+        New Prescriber
+      </a>
+    </div>
     <!--Form to filter information-->
   <form method="get" action="{% url 'filterprescriber' %}" style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;">{% csrf_token %}
       <label style="width: 250px" for="first_name">First Name</label>
@@ -119,16 +124,11 @@ input[type="text"]{
 
       </select><br><br>
       <div style="display: flex; justify-content: space-evenly;">
-        <button style="width: 150px;"
-        class="button"
-        onclick="window.location.href"{% url 'addPrescriber' %}"">
-          Add Prescriber
-        </button>
         <button style="width: 90px;" class="button" type="submit">Search</button> <!--Button to submit the search criteria-->
         <button style="width: 90px;" class="button" type="submit">Show All</button> <!--Button to redisplay all the records-->
       </div>  
-  </form><br><br>
-
+  </form><br>
+  <br><br> 
       <!--Display all the prescriber information through Django-->
     {% for prescriber in prescriber %}
     <div style="display: flex; justify-content: center;">

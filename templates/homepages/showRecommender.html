@@ -22,54 +22,77 @@
       --form-background: #B5C5CD;
     }
     
-      .button {
-        background-color: var(--main-heading);
-        border-radius: 2px;
-        color: var(--selected-background);
-        display: inline-block;
-        font-family: "Roboto", sans-serif;
-        font-size: 12px;
-        padding: 8px 10px;
-        text-align: center;
-        text-transform: uppercase;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        user-select: none;
-        grid-column: 1 / span 2;
-        justify-self: center;
-        }
+    .button {
+      background-color: var(--main-heading);
+      border-radius: 2px;
+      color: var(--selected-background);
+      display: inline-block;
+      font-family: "Roboto", sans-serif;
+      font-size: 12px;
+      padding: 8px 10px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      grid-column: 1 / span 2;
+      justify-self: center;
+    }
     
-    .buttonMargin {
-        margin: 0 0 1em;
-        }
+    .button:active {
+      background: #007a63;
+    }
     
-    .button:hover {
-        background-color: var(--light-main-heading);
-        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
-        text-decoration: none;
-        cursor: pointer;
-        }
+    .button__text {
+      font-family: "Roboto", sans-serif;
+      font-size: 12px;
+      color: #ffffff;
+      transition: all 0.2s;
+    }
     
-    .button:active,
-    .button:focus {
-        background-color: var(--selected-background);
-        box-shadow: 0 0 0 2px var(--main-color-dark) inset;
-        color: var(--background);
-        cursor: pointer;
-        }
+    .button--loading .button__text {
+      visibility: hidden;
+      opacity: 0;
+    }
     
-        input[type="radio"]::after {
-          content: "";
-          display: block;
-          height: 7px;
-          width: 7px;
-          background-color: var(--main-heading);
-          position: absolute;
-          top: 1.8px;
-          left: 2px;
-          border-radius: 50%;
-          transform: scale(0);
-          transition: transform 300ms ease;
-        }
+    .button--loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 30px;
+      left: 0;
+      right: 320px;
+      bottom: 0;
+      margin: auto;
+      border: 4px solid transparent;
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: button-loading-spinner 1s ease infinite;
+    }
+    
+    @keyframes button-loading-spinner {
+      from {
+        transform: rotate(0turn);
+      }
+    
+      to {
+        transform: rotate(1turn);
+      }
+    }
+    
+    input[type="radio"]::after {
+      content: "";
+      display: block;
+      height: 7px;
+      width: 7px;
+      background-color: var(--main-heading);
+      position: absolute;
+      top: 1.8px;
+      left: 2px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 300ms ease;
+    }
     
     input[type="radio"]:hover,
     input[type="radio"]:focus {
@@ -83,8 +106,9 @@
 
     input[type="text"]{
       background-color: #D8F2FF;
-    }
+    }   
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <br><br><br>
     <div style="background-color: #ECF5FF;">
       <div class="container" style="align: center;">
@@ -94,14 +118,14 @@
          the recommender tool can help.</p><br>
         <br><br><br><br>
       <form name='form' method='POST'style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'makeRecommendation' %}">{% csrf_token %}
-
-
-            <label style="width: 250px" for="drug_name">Drug Name:</label><br>
-            <input style="width: 250px" type="text" id="drug_name" name="drug_name">
-            <br><br>
-
-          <button class="button" type="submit">Make Recommendation</button>
+        <label style="width: 250px" for="drug_name">Drug Name:</label><br>
+        <input style="width: 250px" type="text" id="drug_name" name="drug_name">
+        <br><br>
+        <button class="button" onclick="this.classList.toggle('button--loading')" type="submit">
+          <span class="button__text">Make Recommendation</span>
+        </button>
       </form>
+    </div>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   </div>
 
