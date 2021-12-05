@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+# Import our models
 from .models import State 
 from .models import Prescriber, Drug, Triple, Credential, CredPres
 
