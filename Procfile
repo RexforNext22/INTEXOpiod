@@ -1,0 +1,1 @@
+web: gunicorn homepages.wsgi
