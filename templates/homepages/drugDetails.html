@@ -92,13 +92,15 @@ input[type="text"]{
     <h3 style="text-align: center;">
     Classification: {{opioid}}<!--The names of the column names have to match perfectly-->
     </h3>
-    <br><br>
-   <h3>Prescribers:</h3><br>
+    <br>
+    <div style="text-align: center">
+   <h3>Top 10 Prescribers:</h3><br>
     {% for dat in topprescriber %}
 
     {{ dat.fname }} {{dat.lname}}<br><!--The names of the column names have to match perfectly-->
     
   {% endfor %}
+    </div>
   </p>
 </div>
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

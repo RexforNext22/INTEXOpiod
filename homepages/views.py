@@ -61,16 +61,18 @@ def prescribersPageView(request) :
 # View function to see the individual drug information
 def drugDetailsPageView(request, drug_id):
     data = Drug.objects.get(drugid = drug_id)
-    if data.isopioid == True :
-        opioid = "Opioid"
+    sOutput = ""
+    if data.isopioid == "False":
+        sOutput = "Not Opioid"
     else:
-        opioid = "Not Opioid"
+        sOutput = "Opioid"
+        
   
     query1 = 'SELECT npi, fname, lname, qty FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE pd_drugs.drugid =' + str(drug_id) + ' ORDER BY pd_triple.qty DESC LIMIT 10'
     data2 = Prescriber.objects.raw(query1)
     context = {
         "drug" : data,
-        "opioid" : opioid,
+        "opioid" : sOutput,
         "topprescriber" : data2
     }
     return render(request, 'homepages/drugDetails.html', context)
@@ -106,7 +108,10 @@ def filterPrescriberPageView(request) :
 
     # Transform to upper case
     sLocation = sLocation.upper()
-
+    sFirst_Name= sFirst_Name.capitalize()
+    sLast_Name = sLast_Name.capitalize()
+    sGender = sGender.upper()
+    sCredentials = sCredentials.upper()
     sSpeciality = request.GET['specialty']
 
     # Build the raw query
@@ -187,7 +192,27 @@ def filterDrugPageView(request) :
 # View function to add a prescriber
 def addPrescriberPageView(request):
 
-    return render(request, 'homepages/addPrescriber.html')
+    lsSpecialty = ["Geriatric Psychiatry", "Hematology", "Podiatry", "Psychiatry & Neurology",
+                    "Cardiology", "General Acute Care Hospital", "Pediatric Medicine", "Colorectal Surgery (formerly proctology)", "General Practice",
+                    "Gastroenterology", "Multispecialty Clinic/Group Practice", "Interventional Pain Management", "CRNA", "Hospitalist",
+                    "Plastic and Reconstructive Surgery", "Student in an Organized Health Care Education/Training Program", "Neurosurgery",
+                    "Osteopathic Manipulative Medicine", "Physical Medicine and Rehabilitation", "Urology", "Pulmonary Disease",
+                    "Pain Management", "Medical Oncology", "Unknown Physician Specialty Code", "Cardiac Electrophysiology",
+                    "Geriatric Medicine", "Maxillofacial Surgery", "Allergy/Immunology", "Anesthesiology", "Hematology/Oncology",
+                    "Otolaryngology", "Vascular Surgery", "Psychiatry", "Dermatology", "Community Health Worker",
+                    "Gynecological/Oncology", "Rheumatology", "Nuclear Medicine", "Dentist", "Physician Assistant", "Sports Medicine", 
+                    "Health Maintenance Organization", "Pharmacist", "Endocrinology", "Hospice and Palliative Care",
+                    "Radiation Oncology", "Internal Medicine", "Infectious Disease", "Ophthalmology", "Legal Medicine", "Certified Nurse Midwife",
+                    "Preventive Medicine", "Registered Nurse", "Orthopedic Surgery", "Surgical Oncology", "General Surgery", "Nurse", "Obstetrics/Gynecology", "Oral Surgery (dentists only)",
+                    "Psychologist (billing independently)", "Optometry", "Critical Care (Intensivists)", "Neurology", "Specialist",
+                    "Clinic/Center", "Thoracic Surgery", "Neuropsychiatry", "Nurse Practitioner", "Interventional Radiology", "Emergency Medicine", "Family Practice",
+                    "Nephrology", "Diagnostic Radiology", "Cardiac Surgery", "Certified Clinical Nurse Specialist", "Family Medicine" ]
+
+    context = {
+        "specialty" : lsSpecialty
+    }
+
+    return render(request, 'homepages/addPrescriber.html', context)
 
 
 
@@ -211,6 +236,12 @@ def additionPrescriberPageView(request):
             sOpioid_Output = "FALSE"
 
         prescriber.isopioidprescriber = sOpioid_Output
+
+        prescriber.fname = prescriber.fname.capitalize()
+        prescriber.lname = prescriber.lname.capitalize()
+        prescriber.gender = prescriber.gender.capitalize()
+        prescriber.state_id = prescriber.state_id.upper()
+        prescriber.credentials = prescriber.credentials.upper()
         prescriber.save() 
     context = {
 
