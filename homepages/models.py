@@ -67,6 +67,7 @@ class Credential(models.Model):
         db_table = "pd_credential"
     def __str__(self):
         return str(self.description)
+        
 #Association Class for credentials and prescriber
 class CredPres(models.Model) :
     npi = models.ForeignKey(Prescriber, on_delete=models.DO_NOTHING, blank=False)

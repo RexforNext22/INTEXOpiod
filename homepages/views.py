@@ -50,7 +50,7 @@ def prescribersPageView(request) :
                     "Clinic/Center", "Thoracic Surgery", "Neuropsychiatry", "Nurse Practitioner", "Interventional Radiology", "Emergency Medicine", "Family Practice",
                     "Nephrology", "Diagnostic Radiology", "Cardiac Surgery", "Certified Clinical Nurse Specialist", "Family Medicine" ]
 
-
+    # Dictionary to pass the varaibles
     context = {
         "prescriber" : data,
         "specialty" : lsSpecialty,
@@ -61,15 +61,19 @@ def prescribersPageView(request) :
 # View function to see the individual drug information
 def drugDetailsPageView(request, drug_id):
     data = Drug.objects.get(drugid = drug_id)
+
+    # Determine the output varaible for the isopioid message
     sOutput = ""
     if data.isopioid == "False":
         sOutput = "Not Opioid"
     else:
         sOutput = "Opioid"
         
-  
+    # Query that grabs the top ten prescribers for a drug
     query1 = 'SELECT npi, fname, lname, qty FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE pd_drugs.drugid =' + str(drug_id) + ' ORDER BY pd_triple.qty DESC LIMIT 10'
     data2 = Prescriber.objects.raw(query1)
+
+    # Dictionary to pass the varaibles
     context = {
         "drug" : data,
         "opioid" : sOutput,
@@ -86,12 +90,15 @@ def viewPrescriberPageView(request, prescriber_id) :
     Query1 = 'SELECT npi, drugname FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  INNER JOIN pd_drugs ON pd_triple.drug_id = pd_drugs.drugid WHERE pd_triple.qty > 0 AND npi = ' + str(prescriber_id)
     data2 = Prescriber.objects.raw(Query1)
 
+    # Query that grabs the average quantity for each displayed drug
     Query2 = 'SELECT 1 as id, pd_triple.drug_id, round(AVG(qty),0) AS avg FROM pd_triple GROUP BY drug_id HAVING drug_id IN (SELECT pd_triple.drug_id as id FROM pd_prescriber INNER JOIN pd_triple ON pd_prescriber.npi = pd_triple.prescriber_id  WHERE pd_triple.qty > 0 AND npi =' + str(prescriber_id) + ')'
     data3 = Triple.objects.raw(Query2)
+
+    # Dictionary to pass the varaibles
     context = {
-        "prescriber" : data,
-        "drugsprescribed" : data2,
-        "average" : data3
+        "prescriber" : data, # Pass the information about the subscriber
+        "drugsprescribed" : data2, # Pass the drugs that the prescriber writes
+        "average" : data3 # Pass the average
     }
     return render(request, 'homepages/prescriberDetails.html', context)
 
@@ -164,23 +171,31 @@ def filterPrescriberPageView(request) :
 
 # View function to filter the drugs
 def filterDrugPageView(request) :
+
+    # Grab information from the filter form
     sName = request.GET.get("drug_search")
     sName = sName.upper()
     bOpioid = request.GET.get("opioid")
    
+   # Build the query that will run in the database to filter the results
     sQuery = "SELECT * FROM pd_drugs WHERE pd_drugs.drugid = pd_drugs.drugid"
     if sName != '' :
         sQuery += " AND drugname = " + "'" + sName + "'"
 
+    # Convert the radio values to the database values
     if bOpioid != '' :
         if bOpioid == 'yes' :
             bOpioid = 'True'
         else :
             bOpioid = 'False'
         
+        # Build query for the bopioid field to filter
         sQuery += " AND isopioid = " + "'" + bOpioid + "'"
  
+    # Run the query to filter the results
     data = Drug.objects.raw(sQuery)
+    
+    # Dictionary to pass the varaibles
     context = {
         "drugs" : data,
 
@@ -192,6 +207,7 @@ def filterDrugPageView(request) :
 # View function to add a prescriber
 def addPrescriberPageView(request):
 
+    # List with all the different specialty titles
     lsSpecialty = ["Geriatric Psychiatry", "Hematology", "Podiatry", "Psychiatry & Neurology",
                     "Cardiology", "General Acute Care Hospital", "Pediatric Medicine", "Colorectal Surgery (formerly proctology)", "General Practice",
                     "Gastroenterology", "Multispecialty Clinic/Group Practice", "Interventional Pain Management", "CRNA", "Hospitalist",
@@ -209,7 +225,7 @@ def addPrescriberPageView(request):
                     "Nephrology", "Diagnostic Radiology", "Cardiac Surgery", "Certified Clinical Nurse Specialist", "Family Medicine" ]
 
     context = {
-        "specialty" : lsSpecialty
+        "specialty" : lsSpecialty # Pass these to the input HTML page for the drop down menu
     }
 
     return render(request, 'homepages/addPrescriber.html', context)
@@ -219,7 +235,11 @@ def addPrescriberPageView(request):
     # View function to add a prescriber
 def additionPrescriberPageView(request):
     if request.method == 'POST' :
+
+        # Create an instance of the object Prescriber
         prescriber = Prescriber()
+
+        # Grab the information from the HTML form
         prescriber.npi = request.POST['NPI']
         prescriber.fname = request.POST['first_name']
         prescriber.lname = request.POST['last_name']
@@ -230,19 +250,26 @@ def additionPrescriberPageView(request):
         prescriber.totalprescriptions = request.POST['totalprescriptions']
         sOpioid = request.POST.get("sOpioid")
 
+        # Convert the radio to the yes/no values to the databse true/false values
         if sOpioid in ["yes"]:
             sOpioid_Output = "TRUE"
         if sOpioid in ["no"]:
             sOpioid_Output = "FALSE"
 
+        # Set the out variable for the output
         prescriber.isopioidprescriber = sOpioid_Output
 
+        # Fix the capitalization on inputs
         prescriber.fname = prescriber.fname.capitalize()
         prescriber.lname = prescriber.lname.capitalize()
         prescriber.gender = prescriber.gender.capitalize()
         prescriber.state_id = prescriber.state_id.upper()
         prescriber.credentials = prescriber.credentials.upper()
+
+        # Save the object to the database
         prescriber.save() 
+
+    # List with all the different specialty titles
     context = {
 
     }
@@ -251,7 +278,11 @@ def additionPrescriberPageView(request):
 
 # View function to display the edit prescriber html
 def editPrescriberPageView(request, prescriber_id) : 
+
+    # Grab the information of the field that matches the prescriber_id
     data = Prescriber.objects.get(npi = prescriber_id)
+
+    # List with all the different specialty titles
     context = {
         "prescriber" : data,
 
@@ -344,6 +375,8 @@ def makePredictionPageView(request) :
     # Set the sOpioid to the isopioidprescriber
     isopioidprescriber = sOpioid_Output
     
+    # ----------------------------------------------------------------------------------------------------------------------------------------
+    
     url = "http://48387025-e221-44e6-9b7a-696b508b797f.eastus2.azurecontainer.io/score"
 
     payload = json.dumps({
@@ -367,7 +400,8 @@ def makePredictionPageView(request) :
     response = requests.request("POST", url, headers=headers, data=payload)
 
     json_data = json.loads(response.text)
-
+    # ----------------------------------------------------------------------------------------------------------------------------------------
+    
     # Create the output message to the screen
     for iCount in range(0, 1):
         sOutput = "Chances of presciption for an opioid: " + str(round(float((json_data['Results']['WebServiceOutput0'][iCount]['Scored Labels']) * 100), 2)) + "%"
@@ -403,6 +437,8 @@ def makeRecommenderPageView(request) :
     #Query information for the prescriber
     oPrescriber = Prescriber.objects.get(npi = oTriple.prescriber_id)
 
+    # Recommender Python
+    # ----------------------------------------------------------------------------------------------------------------------------------------
     import requests
     import json
 
@@ -475,7 +511,8 @@ def makeRecommenderPageView(request) :
     response = requests.request("POST", url, headers=headers, data=payload)
 
     obj = json.loads(response.text)
-
+    # ----------------------------------------------------------------------------------------------------------------------------------------
+    
     #Find the prescriber information
     prescriber1 = Prescriber.objects.get(npi = obj['Results']['WebServiceOutput0'][1]['Recommended Item 1'])
     prescriber1 = str(prescriber1.fname) + " " + str(prescriber1.lname)
@@ -535,7 +572,7 @@ def learnMorePageView(request) :
     oState2.state = "North Dakota"
     oState2.deaths = 43
 
-    
+        # Dictionary to pass the varaibles
     context = {
         "currentopioidpres" : currentopioidpres,
         "iNumberPrescribedOpioids" : iNumberPrescribedOpioids,
@@ -576,7 +613,7 @@ def learnMore2PageView(request) :
     oState2.state = "North Dakota"
     oState2.deaths = 43
 
-    
+    # Dictionary to pass the varaibles
     context = {
         "currentopioidpres" : currentopioidpres,
         "iNumberPrescribedOpioids" : iNumberPrescribedOpioids,
