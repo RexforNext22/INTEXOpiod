@@ -376,35 +376,40 @@ def makePredictionPageView(request) :
     isopioidprescriber = sOpioid_Output
     
     # ----------------------------------------------------------------------------------------------------------------------------------------
-    
-    url = "http://48387025-e221-44e6-9b7a-696b508b797f.eastus2.azurecontainer.io/score"
+        
+    import requests
+    import json
+
+    url = "http://242e3f41-ce2c-4ae1-bd15-4b172958032f.eastus2.azurecontainer.io/score"
 
     payload = json.dumps({
-        "Inputs": { 
-            "WebServiceInput1": 
-            [{"drugname": drug_name, 
-            "stateabbrev": state, 
-            "population": population, 
-            "isopioidprescriber": isopioidprescriber,
+    "Inputs": {
+        "WebServiceInput0": [
+        {
+            "drugname": drug_name,
+            "stateabbrev": state,
+            "population": population,
+            "isopioidprescriber": sOpioid_Output,
             "deaths": deaths,
-            "drugid": drug_id,
+            "drug_id": drug_id,
             "totalprescriptions": totalprescriptions
-            }]
-            },
-            "GlobalParameters": {}
+        }
+        ]
+    },
+    "GlobalParameters": {}
     })
-    headers = {'Content-Type': 'application/json',
-        'Authorization': 'Bearer FPY7svgpZAWBaDSROxBFlgHgVytRPnU3'
+    headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer x4hvpKhkly6MR4PxIo9zMtxCWI6vaGa2'
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
 
     json_data = json.loads(response.text)
-    # ----------------------------------------------------------------------------------------------------------------------------------------
-    
-    # Create the output message to the screen
+
     for iCount in range(0, 1):
-        sOutput = "Chances of presciption for an opioid: " + str(round(float((json_data['Results']['WebServiceOutput0'][iCount]['Scored Labels']) * 100), 2)) + "%"
+        sOutput = "Chances of prescriber prescribing an opioid: " + str(abs(round(float((json_data['Results']['WebServiceOutput0'][iCount]['Scored Labels']) * 100), 2))) + "%"
+ # ----------------------------------------------------------------------------------------------------------------------------------------
 
     # Dictionary to pass to the prediction page
     context = {

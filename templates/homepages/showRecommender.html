@@ -116,9 +116,7 @@
     <div style="background-color: #ECF5FF;">
       <div class="container" style="align: center;">
         <h1>Prescriber Recommendation</h1>
-     <p>Are you looking for a prescriber for a certain drug? The recommender will provide you with certain prescribers.
-         If you are worried a prescriber might write you a presciption for an opioid when you don't need it,
-         the recommender tool can help.</p><br>
+     <p>Are you looking for a prescriber for a certain drug? The recommender will provide you with certain prescribers.</p><br>
         <br><br><br><br>
       <form name='form' method='POST'style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'makeRecommendation' %}">{% csrf_token %}
         <label style="width: 250px" for="drug_name">Drug Name:</label><br>

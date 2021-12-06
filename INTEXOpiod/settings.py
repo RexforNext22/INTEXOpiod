@@ -95,11 +95,10 @@ WSGI_APPLICATION = 'INTEXOpiod.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'drugfinal', #Name of the database
+        'NAME': 'drugs_primary', #Name of the database
         'USER': 'postgres',
-        'PASSWORD' : 'Tdavisballer123', 
+        'PASSWORD' : 'curitibasouth17', 
         'HOST' : 'localhost',
-        'PORT' : 5433
     }
 }
 # db_from_env = dj_database_url.config(conn_max_age=600)
