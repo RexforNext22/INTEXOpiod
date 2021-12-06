@@ -22,7 +22,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url 
+import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,12 +32,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n8o+%uv!3m2c7*1u_3&m19ac&@v&4h5(cb@7=c7%70m-qg+r#d'
+# SECRET_KEY = 'django-insecure-n8o+%uv!3m2c7*1u_3&m19ac&@v&4h5cb@7=c7%70m-qg+r#d'
 
+SECRET_KEY = os.environ.get('n8o+%uv!3m2c7*1u_3&m19ac&@v&4h5cb@7=c7%70m-qg+r#d')
+EMAIL_HOST_USER = os.environ.get('tanner.davis002@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('Tdavisballer123')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'homepages-intex2021.herokuapp.com']
 
 
 # Application definition
@@ -49,8 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homepages.apps.HomepagesConfig',
+    'whitenoise.runserver_nostatic',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+ 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -88,12 +95,15 @@ WSGI_APPLICATION = 'INTEXOpiod.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'drugs_primary', #Name of the database
+        'NAME': 'drugfinal', #Name of the database
         'USER': 'postgres',
-        'PASSWORD' : 'curitibasouth17', 
-        'HOST' : 'localhost'
+        'PASSWORD' : 'Tdavisballer123', 
+        'HOST' : 'localhost',
+        'PORT' : 5433
     }
 }
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -136,7 +146,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'INTEXOpiod/static')] 
-
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' if needed when deploying
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -144,3 +154,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+django_heroku.settings(locals())
