@@ -1,1 +1,1 @@
-web: gunicorn homepages.wsgi
+web: gunicorn INTEXOpiod.wsgi

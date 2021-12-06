@@ -99,7 +99,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD' : 'Tdavisballer123', 
         'HOST' : 'localhost',
-        'PORT' : 5433
+        'PORT' : 5432
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=600)
