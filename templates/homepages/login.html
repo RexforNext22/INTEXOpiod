@@ -119,11 +119,9 @@ This page display the login form.
     <br><br><br>
     <div style="background-color: #ECF5FF;">
       <div class="container" style="align: center;">
-        {% comment %} <h1>Prescriber Recommendation</h1>
-     <p>Are you looking for a prescriber for a certain drug? The recommender will provide you with certain prescribers.
-         If you are worried a prescriber might write you a presciption for an opioid when you don't need it,
-         the recommender tool can help.</p><br> {% endcomment %}
         <br><br><br><br>
+        
+        <!--Form to login-->
       <form name='form' method='POST'style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'index' %}">{% csrf_token %}
         <label style="width: 250px" for="username">Username:</label><br>
         <input style="width: 250px" type="text" id="username" name="username" autofocus required>

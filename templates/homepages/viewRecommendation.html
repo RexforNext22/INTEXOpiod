@@ -1,6 +1,12 @@
+<!-- Authors: Ryan Pinkney, Tanner Davis, Kevin Guiterrez, Jacob Poor - Section 1
+
+This page will display the recommender fields
+-->
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div style="background-color: #ecf5ff">
   <br /><br /><br />
+
+  <!--Display the output of the recommender-->
   <div class="container" style="align: center">
     <h1 style="padding-top: 20px">Prescriber Recommendations</h1>
     <br />
@@ -29,6 +35,8 @@
       {{ recommendation5 }}
     </h4>
     <br />
+
+    <!--Alert box to notify the user when the recommendation process was successful-->
     <script>
       alert("Recommendation Successful!");
     </script>

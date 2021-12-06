@@ -1,3 +1,7 @@
+<!-- Authors: Ryan Pinkney, Tanner Davis, Kevin Guiterrez, Jacob Poor - Section 1
+
+This page displays the recommender output.
+-->
 {% extends 'base.html' %}
 {% load static %}
   {% block content %}
@@ -118,6 +122,8 @@
         <h1>Prescriber Recommendation</h1>
      <p>Are you looking for a prescriber for a certain drug? The recommender will provide you with certain prescribers.</p><br>
         <br><br><br><br>
+
+      <!--Form to input the drug name for the recommender-->
       <form name='form' method='POST'style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;" action="{% url 'makeRecommendation' %}">{% csrf_token %}
         <label style="width: 250px" for="drug_name">Drug Name:</label><br>
         <input style="width: 250px" type="text" id="drug_name" name="drug_name" autofocus required>

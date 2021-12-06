@@ -1,3 +1,7 @@
+<!-- Authors: Ryan Pinkney, Tanner Davis, Kevin Guiterrez, Jacob Poor - Section 1
+
+This page will show the sign up form.
+-->
 {% extends 'base2.html' %}
 {% load static %}
 {% block content %}
@@ -106,7 +110,12 @@
 <div style="background-color: #ECF5FF;">
     <div class="container" style="align: center;">
         <br><br><br>
+
+        <!--Title-->
         <h1 style="padding-top: 20px">Sign Up</h1>
+
+
+        <!-- HTML form to sign up-->
         <form name='form' method='POST' style="border: 1px solid; width: 400px; margin: auto; padding-left:15px; padding-top:15px; padding-bottom: 15px;"
         action="{% url 'signUpYes' %}">
             {% csrf_token %}

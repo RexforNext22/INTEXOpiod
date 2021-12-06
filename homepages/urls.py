@@ -1,5 +1,7 @@
 # Import the django.url and views function
 from django.urls import path
+
+# Import all our view functions
 from .views import indexPageView
 from .views import drugLibraryPageView, prescribersPageView, loginPageView, index2PageView, learnMore2PageView 
 from .views import drugDetailsPageView, deletePageView, additionPrescriberPageView, predictionPageView, makePredictionPageView
