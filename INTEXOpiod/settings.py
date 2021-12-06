@@ -22,8 +22,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url 
-import django_heroku
+# import dj_database_url 
+# import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,11 +32,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-n8o+%uv!3m2c7*1u_3&m19ac&@v&4h5cb@7=c7%70m-qg+r#d'
+SECRET_KEY = 'django-insecure-n8o+%uv!3m2c7*1u_3&m19ac&@v&4h5cb@7=c7%70m-qg+r#d'
 
-SECRET_KEY = os.environ.get('n8o+%uv!3m2c7*1u_3&m19ac&@v&4h5cb@7=c7%70m-qg+r#d')
-EMAIL_HOST_USER = os.environ.get('tanner.davis002@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('Tdavisballer123')
+# SECRET_KEY = os.environ.get('n8o+%uv!3m2c7*1u_3&m19ac&@v&4h5cb@7=c7%70m-qg+r#d')
+# EMAIL_HOST_USER = os.environ.get('tanner.davis002@gmail.com')
+# EMAIL_HOST_PASSWORD = os.environ.get('Tdavisballer123')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -53,8 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homepages.apps.HomepagesConfig',
-    'whitenoise.runserver_nostatic',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.runserver_nostatic',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
  
@@ -102,8 +102,8 @@ DATABASES = {
         'PORT' : 5433
     }
 }
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -155,4 +155,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
